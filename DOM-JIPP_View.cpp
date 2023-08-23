@@ -69,7 +69,7 @@ void apresenta_peca(char jogador)
 	
 	for(int i = 0; i < 28; i++)
 	{
-		if(peca[i].status == jogador)
+		if(peca[i].status == jogador)                     //caracter que vem do controller, respectivamente das funcoes iniciar e jogar.
 		{
 			printf("%d.[%d|%d]   ", a, peca[i].lado1, peca[i].lado2);
 			a++;
@@ -99,7 +99,6 @@ char menu_jogada()
 	char op;
 	printf("J - Jogar (possiveis: %d ou %d)\n", mesa[0].ladoE, mesa[njogadas-1].ladoD);
 	printf("C - Comprar\n");
-	printf("P - Passar\n");
 	printf("S - Sair (interromper o jogo)\n");
 	printf("Opcao: ");
 	scanf(" %c", &op);
