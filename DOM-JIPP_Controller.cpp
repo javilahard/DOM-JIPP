@@ -58,7 +58,11 @@ void inicia()
 			   break;
 			case 3:
 			   fmostra(peca);
-			case 4:
+		           break;
+		     case 4:
+		           inicia_jogo();
+		           break;
+			case 5:
 			   break;
 			
 			
