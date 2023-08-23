@@ -19,7 +19,8 @@ int menu()
 		printf("1. Embaralhar pecas\n");
 		printf("2. Reorganizar pecas\n");
 		printf("3. Mostrar pecas na tela\n");
-		printf("4. Sair\n");
+	        printf("4. Iniciar o jogo\n");
+		printf("5. Sair\n");
 		scanf("%d", &resp);
 		system("cls");
 		switch(resp)
@@ -35,6 +36,9 @@ int menu()
 				return resp;
 				break;
 			case 4:
+			        return resp;
+			        break;
+			case 5:
 				printf("MENU encerrado\n");
 				break;
 			default:
