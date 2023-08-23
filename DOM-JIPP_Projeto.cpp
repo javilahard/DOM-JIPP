@@ -15,5 +15,4 @@ main()
 {
 	cria_peca(peca);
 	inicia();
-	inicia_jogo();
 }
