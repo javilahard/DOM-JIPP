@@ -1,6 +1,6 @@
 
-/*DOM-JIPP_Controller.cpp - Etapa 2
-16/08/2023
+/*DOM-JIPP_Controller.cpp - Etapa 3
+24/08/2023
 Igor Costa
 Joao Avila Harduin
 Pedro Evaristo de Oliveira
@@ -11,7 +11,7 @@ Priscilla de Souza Jardim
 #include "DOM-JIPP_Controller.h"
 #include <time.h>
 
-void cria_peca(tipo_peca peca[28])	//preenchimento de cada peca com os lados em ordem crescente
+void cria_peca(tipo_peca peca[28])	               //preenchimento de cada peca com os lados em ordem crescente
 {
 	int p = 0;
 	
@@ -27,7 +27,7 @@ void cria_peca(tipo_peca peca[28])	//preenchimento de cada peca com os lados em 
 	}
 }
 
-void embaralha(tipo_peca peca[28])	//embaralhamento das pecas do jogo
+void embaralha(tipo_peca peca[28])	               //embaralhamento das pecas do jogo
 {
 	srand(time(NULL));
 	
@@ -69,7 +69,7 @@ void embaralha(tipo_peca peca[28])	//embaralhamento das pecas do jogo
 
 void inicia_jogo()
 {
-	int pi;
+	int pi;                                  //primeira peca
 	char vez;
 	
 	embaralha(peca);
@@ -86,11 +86,11 @@ void inicia_jogo()
 	
 	for(int i = 14; i < 28; i++)
 	{
-		peca[i].status = '0';	
+		peca[i].status = '0';	          //status '0' sao as pecas do monte
 	}
 	
 	pi = peca_inicial();
-	peca[pi].status = 'M';
+	peca[pi].status = 'M';                    //atribui status mesa para a primeira peca depois de descoberta
 	mesa[0].ladoD = peca[pi].lado1;
 	mesa[0].ladoE = peca[pi].lado2;
 	MesaE=mesa[0].ladoE;
@@ -132,7 +132,7 @@ int peca_inicial()
 	
 	if(prim != 100)
 	{
-		qtmesa = 1;
+		qtmesa = 1;        //quantidade de pecas na mesa
 		return prim;
 	}
 	
