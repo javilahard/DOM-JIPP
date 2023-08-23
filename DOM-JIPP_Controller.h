@@ -10,6 +10,7 @@ Priscilla de Souza Jardim
 void cria_peca(tipo_peca peca[28]);
 void embaralha(tipo_peca peca[28]);
 void inicia();
+void inicia_jogo();
 int peca_inicial();
 void jogar(char jogador);
 
