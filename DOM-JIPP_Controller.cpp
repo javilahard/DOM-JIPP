@@ -99,7 +99,7 @@ void inicia_jogo()
 	if(peca[pi].status == '1')
 	{
 		apresenta_mensagem("O primeiro lance foi do jogador 1\n");
-		vez = '2';
+		vez = '2';                       //indica de qual jogador e' o proximo lance
 	}
 	else
 	{
