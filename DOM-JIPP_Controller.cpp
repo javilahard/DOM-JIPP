@@ -42,30 +42,30 @@ void embaralha(tipo_peca peca[28])	               //embaralhamento das pecas do 
 }
 
 
-/*void finicia()
+void inicia()
 {
 	do
 	{
-		resp = fmenu();
+	    resp = fmenu();
 		
-		switch(resp)
-		{
-			case 1:
-				fembaralha(peca);
-				break;
+	     switch(resp)
+	     {
+		    case 1:
+		           fembaralha(peca);
+		           break;
 			case 2:
-				fcria_peca(peca);
-				break;
+			   fcria_peca(peca);
+			   break;
 			case 3:
-				fmostra(peca);
+			   fmostra(peca);
 			case 4:
-				break;
+			   break;
 			
 			
-		}
-	}while(resp != 4);
+	      }
+	  }while(resp != 4);
 }
-*/
+
 
 void inicia_jogo()
 {
