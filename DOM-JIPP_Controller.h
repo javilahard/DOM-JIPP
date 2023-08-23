@@ -13,5 +13,7 @@ void inicia();
 void inicia_jogo();
 int peca_inicial();
 void jogar(char jogador);
+void CarregaMesaE(int a);
+void CarregaMesaD(int a);
 
 
