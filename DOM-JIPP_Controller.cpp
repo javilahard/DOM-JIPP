@@ -50,7 +50,7 @@ void inicia()
 		
 	     switch(resp)
 	     {
-		    case 1:
+		        case 1:
 		           fembaralha(peca);
 		           break;
 			case 2:
@@ -69,7 +69,7 @@ void inicia()
 
 void inicia_jogo()
 {
-	int pi;                                  //primeira peca
+	int pi;                                  //peca inicial
 	char vez;
 	
 	embaralha(peca);
