@@ -1,5 +1,5 @@
-/*DOM-JIPP_Model.cpp - Etapa 2
-16/08/2023
+/*DOM-JIPP_Model.cpp - Etapa 3
+24/08/2023
 Igor Costa
 Joao Avila Harduin
 Pedro Evaristo de Oliveira
@@ -25,6 +25,6 @@ struct Mesa
 
 tipo_peca peca[28];
 tipo_peca aux;
-int njogadas = 0;
+
 	
 
