@@ -91,8 +91,8 @@ void inicia_jogo()
 	
 	pi = peca_inicial();
 	peca[pi].status = 'M';                    //atribui status mesa para a primeira peca depois de descoberta
-	mesa[0].ladoD = peca[pi].lado1;
-	mesa[0].ladoE = peca[pi].lado2;
+	mesa[0].ladoE = peca[pi].lado1;
+	mesa[0].ladoD = peca[pi].lado2;
 	MesaE=mesa[0].ladoE;
 	MesaD=mesa[0].ladoD;
 	
