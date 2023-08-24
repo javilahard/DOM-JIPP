@@ -9,11 +9,11 @@ Priscilla de Souza Jardim
 int menu();
 void mostra(tipo_peca peca[28]);
 void apresenta_peca(char jogador);
-void apresenta_mensagem(char *m);
+void apresenta_mensagem(char m[100])
 void mostra_mesa();
 char menu_jogada();
 int resp;
 
-2308211635171465
+
 
 
