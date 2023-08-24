@@ -170,10 +170,19 @@ void jogar(char jogador)
 	{
 		
 		int escolha, b = 0, i = 0;
-	
-		mostra_mesa();
+		
+	    mostra_mesa();
 		apresenta_peca(jogador);
 		op = menu_jogada();
+		
+		if(op == 'S' || op == 's')
+		   break;
+		
+		if(op == 'c' || op == 'C')
+	    {
+		    comprar(jogador);
+	        continue;
+	    }
 		
 		if(op == 'j' || op == 'J')
 		{
@@ -207,15 +216,33 @@ void jogar(char jogador)
 			       }
 				
 			    } 
-			
 		}
 		if(jogador=='1')
 		   	jogador='2';
 		else
 		   	jogador='1';
 	}
-	while(op != 'S' || op != 's');
+	while(1);
 }
+
+
+void comprar(char jogador)
+{
+
+   int i = 14;          //as 14 primeiras peças já não estão mais livres
+   while(i < 28)
+   {
+       if (peca[i].status == '0')
+        {
+         peca[i].status = jogador;
+         break;
+        }
+        i++;
+   }
+   if (i >= 28)
+       apresenta_mensagem("Nada a comprar\n");
+}
+
 
 void carregaMesaE(int i)
 {
@@ -258,6 +285,7 @@ void carregaMesaD(int i)
 	qtmesa++;
 	peca[i].status = 'M'; 
 }
+
 
 
 
