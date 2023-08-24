@@ -243,7 +243,7 @@ void carregaMesaE(int i)
 
 void carregaMesaD(int i)
 {
-	if (peca[i].lado2 == mesaD)
+	if (peca[i].lado1 == mesaD)
 	{
 		mesa[qtmesa].ladoE = peca[i].lado1;                 //mesa[qtmesa] pois a peca vai ficar na posicao seguinte da anterior 
 		mesa[qtmesa].ladoD = peca[i].lado2;
