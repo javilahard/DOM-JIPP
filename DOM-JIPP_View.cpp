@@ -126,6 +126,7 @@ char escolher_lado()
 	printf("Escolha o lado da mesa (E/D): ");
 	flush_in();
 	scanf("%c", &lado);
+	system("cls");
 	return lado;
 }
 
