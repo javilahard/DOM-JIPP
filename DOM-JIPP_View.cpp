@@ -91,10 +91,11 @@ void mostra_mesa()
 {
 	printf("=============\n");
 	printf("MESA: ");
-	for(int i = 0; i <= qtmesa; i++)
+	for(int i = 0; i < qtmesa; i++)
 	{
 		printf("[%d|%d]", mesa[i].ladoE, mesa[i].ladoD);	
 	}
+	printf("\n");
 	printf("=============\n");
 }
 
