@@ -94,7 +94,6 @@ void inicia_jogo()
 	}
 	
 	pi = peca_inicial();
-	peca[pi].status = 'M';                    //atribui status mesa para a primeira peca depois de descoberta
 	mesa[0].ladoE = peca[pi].lado1;
 	mesa[0].ladoD = peca[pi].lado2;
 	MesaE=mesa[0].ladoE;
@@ -111,6 +110,7 @@ void inicia_jogo()
 		vez = '1';
 	}
 	
+	peca[pi].status = 'M';	//atribui status mesa para a primeira peca depois de descoberta
 	jogar(vez);
 }
 
@@ -172,7 +172,7 @@ void jogar(char jogador)
 	if(op == 'j' || op == 'J')
 	{
 		escolha = escolher_peca(jogador);
-		while(i < 28 || a+1 != escolha)             //verifica qual é a peca escolhida a partir de seu numero de apresentacao das pecas de um jogador e de sua indexacao no array de pecas
+		while(i < 28 || a-1 != escolha)             //verifica qual é a peca escolhida a partir de seu numero de apresentacao das pecas de um jogador e de sua indexacao no array de pecas
 		{
 			if(peca[i].status == jogador)
 			{
@@ -221,6 +221,7 @@ void carregaMesaE(int a)
 	qtmesa++; //incrementa a qtde de peças na mesa
 	peca[a].status = 'M'; //atualiza o status da peça jogada
 }
+
 void carregaMesaD(int a)
 {
 	if (peca[a].lado2 == mesaD)
