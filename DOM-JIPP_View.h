@@ -9,9 +9,11 @@ Priscilla de Souza Jardim
 int menu();
 void mostra(tipo_peca peca[28]);
 void apresenta_peca(char jogador);
-void apresenta_mensagem(char m[100])
+void apresenta_mensagem(char m[100]);
 void mostra_mesa();
 char menu_jogada();
+int escolher_peca(char jogador);
+char escolher_lado();
 int resp;
 
 
