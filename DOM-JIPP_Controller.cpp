@@ -169,7 +169,7 @@ void jogar(char jogador)
 	do
 	{
 		
-		int escolha, a = 0, i = 0;
+		int escolha, b = 0, i = 0;
 	
 		mostra_mesa();
 		apresenta_peca(jogador);
@@ -179,84 +179,84 @@ void jogar(char jogador)
 		{
 		
 			escolha = escolher_peca(jogador);
-			while((a != escolha) && (i < 28))             //verifica qual é a peca escolhida a partir de seu numero de apresentacao das pecas de um jogador e de sua indexacao no array de pecas
+			while((b != escolha) && (i < 28))             //verifica qual é a peca escolhida a partir de seu numero de apresentacao das pecas de um jogador e de sua indexacao no array de pecas
 			{
 				if(peca[i].status == jogador)
 				{
-					a++;
+					b++;
 				}
 				i++;
 			}
 			
-			a--;
 			i--;
+			
 			lado = escolher_lado();
 			
 			if(lado == 'E' || lado == 'e')
 			   {
 				if(mesa[0].ladoE == peca[i].lado1 || mesa[0].ladoE == peca[i].lado2)            //verifica se e' possivel jogar a peca escolhida a partir do lado esquerdo da peca ja na mesa que e' sempre mesa[0]
 				{
-				  carregaMesaE(a); 	
+				  carregaMesaE(i); 	
 				}
 			   }
 		    else if(lado == 'D' || lado == 'd')
 			    {
 			    if(mesa[qtmesa-1].ladoD == peca[i].lado1 || mesa[qtmesa-1].ladoD == peca[i].lado2)            //verifica pelo lado direito da peca que ja esta' na peca de indice qtmesa-1
 				   {
-				    carregaMesaD(a);
+				    carregaMesaD(i);
 			       }
 				
 			    } 
 			
 		}
 		if(jogador=='1')
-		   		jogador='2';
-			else
-		   		jogador='1'	;
+		   	jogador='2';
+		else
+		   	jogador='1';
 	}
 	while(op != 'S' || op != 's');
 }
 
-void carregaMesaE(int a)
+void carregaMesaE(int i)
 {
 //deslocamento de toda a mesa para abrir a primeira posição 0
-    for(int i = qtmesa; i > 0; i--)
-	    mesa[i] = mesa[i-1];
+    for(int j = qtmesa; j > 0; j--)
+	    mesa[j] = mesa[j-1];
 //verifica se será necessário inverter a peça a ser jogada e
 //joga na posição 0 da mesa
-	if (peca[a].lado2 == mesaE)
+	if (peca[i].lado2 == mesaE)
 	{
-		mesa[0].ladoE = peca[a].lado1;
-		mesa[0].ladoD = peca[a].lado2;
+		mesa[0].ladoE = peca[i].lado1;
+		mesa[0].ladoD = peca[i].lado2;
 	}
 	else
 	{
-		mesa[0].ladoE = peca[a].lado2;
-		mesa[0].ladoD = peca[a].lado1;
+		mesa[0].ladoE = peca[i].lado2;
+		mesa[0].ladoD = peca[i].lado1;
 	}
 	//atualiza a variável global mesaE com o ladoE agora atualizado
 	mesaE = mesa[0].ladoE;
 	
 	qtmesa++; //incrementa a qtde de peças na mesa
-	peca[a].status = 'M'; //atualiza o status da peça jogada
+	peca[i].status = 'M'; //atualiza o status da peça jogada
 }
 
-void carregaMesaD(int a)
+void carregaMesaD(int i)
 {
-	if (peca[a].lado2 == mesaD)
+	if (peca[i].lado2 == mesaD)
 	{
-		mesa[qtmesa].ladoE = peca[a].lado1;                 //mesa[qtmesa] pois a peca vai ficar na posicao seguinte da anterior 
-		mesa[qtmesa].ladoD = peca[a].lado2;
+		mesa[qtmesa].ladoE = peca[i].lado1;                 //mesa[qtmesa] pois a peca vai ficar na posicao seguinte da anterior 
+		mesa[qtmesa].ladoD = peca[i].lado2;
 	}
 	else
 	{
-		mesa[qtmesa].ladoE = peca[a].lado2;
-		mesa[qtmesa].ladoD = peca[a].lado1;
+		mesa[qtmesa].ladoE = peca[i].lado2;
+		mesa[qtmesa].ladoD = peca[i].lado1;
 	}
 	
 	mesaD = mesa[qtmesa].ladoD;
 	qtmesa++;
-	peca[a].status = 'M'; 
+	peca[i].status = 'M'; 
 }
 
 
