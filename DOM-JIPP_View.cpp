@@ -1,5 +1,5 @@
-/*DOM-JIPP_View.cpp - Etapa 2
-16/08/2023
+/*DOM-JIPP_View.cpp - Etapa 3
+24/08/2023
 Igor Costa
 Joao Avila Harduin
 Pedro Evaristo de Oliveira
@@ -19,7 +19,8 @@ int menu()
 		printf("1. Embaralhar pecas\n");
 		printf("2. Reorganizar pecas\n");
 		printf("3. Mostrar pecas na tela\n");
-		printf("4. Sair\n");
+	        printf("4. Iniciar o jogo\n");
+		printf("5. Sair\n");
 		scanf("%d", &resp);
 		system("cls");
 		switch(resp)
@@ -35,6 +36,9 @@ int menu()
 				return resp;
 				break;
 			case 4:
+			        return resp;
+			        break;
+			case 5:
 				printf("MENU encerrado\n");
 				break;
 			default:
@@ -67,9 +71,11 @@ void apresenta_peca(char jogador)
 {
 	int a = 1;
 	
+	printf("JOGADOR %c: ", jogador);
+	
 	for(int i = 0; i < 28; i++)
 	{
-		if(peca[i].status == jogador)
+		if(peca[i].status == jogador)                     //caracter que vem do controller, respectivamente das funcoes iniciar e jogar.
 		{
 			printf("%d.[%d|%d]   ", a, peca[i].lado1, peca[i].lado2);
 			a++;
@@ -89,7 +95,7 @@ void mostra_mesa()
 	printf("MESA: ");
 	for(int i = 0; i < qtmesa; i++)
 	{
-		printf("[%d|%d]", mesa[i].ladoE, mesa[i].ladoD);
+		printf("[%d|%d]", mesa[i].ladoE, mesa[i].ladoD);	
 	}
 	printf("\n");
 	printf("=============\n");
@@ -100,7 +106,6 @@ char menu_jogada()
 	char op;
 	printf("J - Jogar (possiveis: %d ou %d)\n", mesa[0].ladoE, mesa[qtmesa-1].ladoD);
 	printf("C - Comprar\n");
-	printf("P - Passar\n");
 	printf("S - Sair (interromper o jogo)\n");
 	printf("Opcao: ");
 	scanf(" %c", &op);
@@ -119,7 +124,7 @@ char escolher_lado()
 {
 	char lado;
 	printf("Escolha o lado da mesa (E/D): ");
-	scanf(" %c");
+	scanf(" %c", &lado);
 	return lado;
 }
 

@@ -1,6 +1,6 @@
 
-/*DOM-JIPP_Controller.cpp - Etapa 2
-16/08/2023
+/*DOM-JIPP_Controller.cpp - Etapa 3
+24/08/2023
 Igor Costa
 Joao Avila Harduin
 Pedro Evaristo de Oliveira
@@ -11,7 +11,7 @@ Priscilla de Souza Jardim
 #include "DOM-JIPP_Controller.h"
 #include <time.h>
 
-void cria_peca(tipo_peca peca[28])	//preenchimento de cada peca com os lados em ordem crescente
+void cria_peca(tipo_peca peca[28])	               //preenchimento de cada peca com os lados em ordem crescente
 {
 	int p = 0;
 	
@@ -27,7 +27,7 @@ void cria_peca(tipo_peca peca[28])	//preenchimento de cada peca com os lados em 
 	}
 }
 
-void embaralha(tipo_peca peca[28])	//embaralhamento das pecas do jogo
+void embaralha(tipo_peca peca[28])	               //embaralhamento das pecas do jogo
 {
 	srand(time(NULL));
 	
@@ -41,9 +41,39 @@ void embaralha(tipo_peca peca[28])	//embaralhamento das pecas do jogo
 	}
 }
 
+
+void inicia()
+{
+	do
+	{
+	    resp = menu();
+		
+	     switch(resp)
+	     {
+		        case 1:
+		           embaralha(peca);
+		           break;
+			case 2:
+			   cria_peca(peca);
+			   break;
+			case 3:
+			   mostra(peca);
+		           break;
+		     case 4:
+		           inicia_jogo();
+		           break;
+			case 5:
+			   break;
+			
+			
+	      }
+	  }while(resp != 4);
+}
+
+
 void inicia_jogo()
 {
-	int pi;
+	int pi;                                  //peca inicial
 	char vez;
 	
 	embaralha(peca);
@@ -60,29 +90,27 @@ void inicia_jogo()
 	
 	for(int i = 14; i < 28; i++)
 	{
-		peca[i].status = '0';	
+		peca[i].status = '0';	          //status '0' sao as pecas do monte
 	}
 	
 	pi = peca_inicial();
-	mesa[0].ladoD = peca[pi].lado1;
-	mesa[0].ladoE = peca[pi].lado2;
+	mesa[0].ladoE = peca[pi].lado1;
+	mesa[0].ladoD = peca[pi].lado2;
 	mesaE = mesa[0].ladoE;
 	mesaD = mesa[0].ladoD;
 	
 	if(peca[pi].status == '1')
 	{
-		char msg[] = "O primeiro lance foi do jogador 1";
-		apresenta_mensagem(msg);
-		vez = '2';
+		apresenta_mensagem("O primeiro lance foi do jogador 1\n");
+		vez = '2';                       //indica de qual jogador e' o proximo lance
 	}
 	else
 	{
-		char msg[] = "O primeiro lance foi do jogador 2";
-		apresenta_mensagem(msg);
+		apresenta_mensagem("O primeiro lance foi do jogador 2\n");
 		vez = '1';
 	}
 	
-	peca[pi].status = 'M';
+	peca[pi].status = 'M';	//atribui status mesa para a primeira peca depois de descoberta
 	jogar(vez);
 }
 
@@ -108,7 +136,7 @@ int peca_inicial()
 	
 	if(prim != 100)
 	{
-		qtmesa = 1;
+		qtmesa = 1;        //quantidade de pecas na mesa
 		return prim;
 	}
 	
@@ -135,41 +163,59 @@ int peca_inicial()
 
 void jogar(char jogador)
 {
-	char op, lado;
-	int escolha, a = 0, i = 0;
 	
-	mostra_mesa();
-	apresenta_peca(jogador);
-	op = menu_jogada();
-	if(op == 'j' || op == 'J')
+	
+	
+	do
 	{
-		escolha = escolher_peca(jogador);
-		while(i < 28 || a-1 != escolha)
+		char op, lado;
+		int escolha, a = 0, i = 0;
+	
+		mostra_mesa();
+		apresenta_peca(jogador);
+		op = menu_jogada();
+		
+		if(op == 'j' || op == 'J')
 		{
-			if(peca[i].status == jogador)
+		
+			escolha = escolher_peca(jogador);
+			while(i < 28 || a-1 != escolha)             //verifica qual é a peca escolhida a partir de seu numero de apresentacao das pecas de um jogador e de sua indexacao no array de pecas
 			{
-				a++;
+				if(peca[i].status == jogador)
+				{
+					a++;
+				}
+				i++;
 			}
-			i++;
-		}
-		lado = escolher_lado();
-		if(lado == 'E' || lado == 'e')
-		{
-			if(mesa[0].ladoE == peca[a].lado1 || mesa[0].ladoE == peca[a].lado2)
+			lado = escolher_lado();
+			if(lado == 'E' || lado == 'e')
 			{
-			  carregaMesaE(a); 	
+				if(mesa[0].ladoE == peca[a].lado1 || mesa[0].ladoE == peca[a].lado2)            //verifica se e' possivel jogar a peca escolhida a partir do lado esquerdo da peca ja na mesa que e' sempre mesa[0]
+				{
+				  carregaMesaE(a); 	
+				}
+				
+				
+			}
+		        else if(lado == 'D' || lado == 'd')
+			{
+				if(mesa[qtmesa-1].ladoD == peca[a].lado1 || mesa[qtmesa-1].ladoD == peca[a].lado2)            //verifica pelo lado direito da peca que ja esta' na peca de indice qtmesa-1
+				{
+				  carregaMesaD(a);
+				}
+				
 			}
 		}
-	}
+	}while(op != 'S' || op != 's');
 }
 
 void carregaMesaE(int a)
 {
-	for(int i = qtmesa; i > 0; i--)
-	{
-		mesa[i] = mesa[i-1];	
-	}
-
+//deslocamento de toda a mesa para abrir a primeira posição 0
+        for(int i = qtmesa; i > 0; i--)
+	mesa[i] = mesa[i-1];
+//verifica se será necessário inverter a peça a ser jogada e
+//joga na posição 0 da mesa
 	if (peca[a].lado2 == mesaE)
 	{
 		mesa[0].ladoE = peca[a].lado1;
@@ -180,17 +226,18 @@ void carregaMesaE(int a)
 		mesa[0].ladoE = peca[a].lado2;
 		mesa[0].ladoD = peca[a].lado1;
 	}
+	//atualiza a variável global mesaE com o ladoE agora atualizado
 	mesaE = mesa[0].ladoE;
 	
-	qtmesa++; 
-	peca[a].status = 'M';
+	qtmesa++; //incrementa a qtde de peças na mesa
+	peca[a].status = 'M'; //atualiza o status da peça jogada
 }
 
 void carregaMesaD(int a)
 {
 	if (peca[a].lado2 == mesaD)
 	{
-		mesa[qtmesa].ladoE = peca[a].lado1;
+		mesa[qtmesa].ladoE = peca[a].lado1;                 //mesa[qtmesa] pois a peca vai ficar na posicao seguinte da anterior 
 		mesa[qtmesa].ladoD = peca[a].lado2;
 	}
 	else
@@ -200,6 +247,7 @@ void carregaMesaD(int a)
 	}
 	
 	mesaD = mesa[qtmesa].ladoD;
+	qtmesa++;
 	peca[a].status = 'M'; 
 }
 

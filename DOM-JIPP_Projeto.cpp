@@ -1,5 +1,5 @@
-/*DOM-JIPP_Projeto.cpp - Etapa 2
-16/08/2023
+/*DOM-JIPP_Projeto.cpp - Etapa 3
+24/08/2023
 (main)
 Igor Costa
 Joao Avila Harduin
@@ -11,9 +11,9 @@ Priscilla de Souza Jardim
 #include "DOM-JIPP_Controller.cpp"
 
 
-int main()
+main()
 {
 	cria_peca(peca);
-	inicia_jogo();
-	return 0;
+	inicia();
 }
+
