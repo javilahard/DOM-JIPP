@@ -19,7 +19,7 @@ int menu()
 		printf("1. Embaralhar pecas\n");
 		printf("2. Reorganizar pecas\n");
 		printf("3. Mostrar pecas na tela\n");
-	        printf("4. Iniciar o jogo\n");
+	    printf("4. Iniciar o jogo\n");
 		printf("5. Sair\n");
 		scanf("%d", &resp);
 		system("cls");
@@ -116,7 +116,7 @@ int escolher_peca(char jogador)
 {
 	int es;
 	printf("Jogador %c: Escolha a peca para jogar (0 para desistir): ", jogador);
-	scanf("%d", &es);
+    scanf("%d", &es);
 	return es;
 }
 
@@ -124,10 +124,16 @@ char escolher_lado()
 {
 	char lado;
 	printf("Escolha o lado da mesa (E/D): ");
-	scanf(" %c", &lado);
+	flush_in();
+	scanf("%c", &lado);
 	return lado;
 }
 
+void flush_in() //ou void fclear()
+{
+	int ch;
+	while( (ch = fgetc(stdin)) != EOF && ch != '\n');
+}
 
 
 

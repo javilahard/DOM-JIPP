@@ -165,10 +165,10 @@ void jogar(char jogador)
 {
 	
 	
-	
+	char op, lado;
 	do
 	{
-		char op, lado;
+		
 		int escolha, a = 0, i = 0;
 	
 		mostra_mesa();
@@ -179,7 +179,7 @@ void jogar(char jogador)
 		{
 		
 			escolha = escolher_peca(jogador);
-			while(i < 28 || a-1 != escolha)             //verifica qual é a peca escolhida a partir de seu numero de apresentacao das pecas de um jogador e de sua indexacao no array de pecas
+			while((a != escolha) && (i < 28))             //verifica qual é a peca escolhida a partir de seu numero de apresentacao das pecas de um jogador e de sua indexacao no array de pecas
 			{
 				if(peca[i].status == jogador)
 				{
@@ -187,33 +187,41 @@ void jogar(char jogador)
 				}
 				i++;
 			}
+			
+			a--;
+			i--;
 			lado = escolher_lado();
+			
 			if(lado == 'E' || lado == 'e')
-			{
-				if(mesa[0].ladoE == peca[a].lado1 || mesa[0].ladoE == peca[a].lado2)            //verifica se e' possivel jogar a peca escolhida a partir do lado esquerdo da peca ja na mesa que e' sempre mesa[0]
+			   {
+				if(mesa[0].ladoE == peca[i].lado1 || mesa[0].ladoE == peca[i].lado2)            //verifica se e' possivel jogar a peca escolhida a partir do lado esquerdo da peca ja na mesa que e' sempre mesa[0]
 				{
 				  carregaMesaE(a); 	
 				}
+			   }
+		    else if(lado == 'D' || lado == 'd')
+			    {
+			    if(mesa[qtmesa-1].ladoD == peca[i].lado1 || mesa[qtmesa-1].ladoD == peca[i].lado2)            //verifica pelo lado direito da peca que ja esta' na peca de indice qtmesa-1
+				   {
+				    carregaMesaD(a);
+			       }
 				
-				
-			}
-		        else if(lado == 'D' || lado == 'd')
-			{
-				if(mesa[qtmesa-1].ladoD == peca[a].lado1 || mesa[qtmesa-1].ladoD == peca[a].lado2)            //verifica pelo lado direito da peca que ja esta' na peca de indice qtmesa-1
-				{
-				  carregaMesaD(a);
-				}
-				
-			}
+			    } 
+			
 		}
-	}while(op != 'S' || op != 's');
+		if(jogador=='1')
+		   		jogador='2';
+			else
+		   		jogador='1'	;
+	}
+	while(op != 'S' || op != 's');
 }
 
 void carregaMesaE(int a)
 {
 //deslocamento de toda a mesa para abrir a primeira posição 0
-        for(int i = qtmesa; i > 0; i--)
-	mesa[i] = mesa[i-1];
+    for(int i = qtmesa; i > 0; i--)
+	    mesa[i] = mesa[i-1];
 //verifica se será necessário inverter a peça a ser jogada e
 //joga na posição 0 da mesa
 	if (peca[a].lado2 == mesaE)

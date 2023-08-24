@@ -14,6 +14,7 @@ void mostra_mesa();
 char menu_jogada();
 int escolher_peca(char jogador);
 char escolher_lado();
+void flush_in();
 int resp;
 
 
