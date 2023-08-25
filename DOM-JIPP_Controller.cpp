@@ -164,8 +164,8 @@ void jogar(char jogador)
 		
 		switch (op)
 	   {
-	     case 's':
-	     case 'S':
+	    case 's':
+	    case 'S':
 		    exit(0);
 		case 'C':
 		case 'c':
@@ -223,10 +223,13 @@ void jogar(char jogador)
 	        }break;
 	    
 		default:
-	    	system("cls");
+	    	{
+			system("cls");
 	    	apresenta_mensagem("Opcao Invalida!\n");
 			system("pause");
 			system("cls");
+			continue;
+		    }
 		}
 		
 		if(jogador=='1')      //mudar o jogador para o da proxima rodada
