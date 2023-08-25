@@ -51,23 +51,13 @@ void inicia()
 	     switch(resp)
 	     {
 		        case 1:
-		           embaralha(peca);
-		           break;
-			case 2:
-			   cria_peca(peca);
-			   break;
-			case 3:
-			   mostra(peca);
-		           break;
-		     case 4:
 		           inicia_jogo();
 		           break;
-			case 5:
-			   break;
-			
-			
-	      }
-	  }while(resp != 4);
+		        case 2:
+		        	break;
+		 }
+	}
+	while(1);
 }
 
 
@@ -151,7 +141,7 @@ int peca_inicial()
 		else if(peca[i].lado1 + peca[i].lado2 == peca[prim].lado1 + peca[prim].lado2)
 		{
 			if((peca[i].lado1 > peca[prim].lado1 && peca[i].lado1 > peca[prim].lado2) ||
-			   (peca[i].lado2 > peca[prim].lado1 && peca[i].lado2 > peca[prim].lado2))
+			   (peca[i].lado2 > peca[prim].lado1 && peca[i].lado2 > peca[prim].lado2))          //verifica qual a maior soma e se a maior tiver iguais qual a peca com maior lado
 			{
 					prim = i;
 			}
@@ -175,28 +165,30 @@ void jogar(char jogador)
 		apresenta_peca(jogador);
 		op = menu_jogada();
 		
-		if(op == 'S' || op == 's')
-		   break;
-		
-		if(op == 'c' || op == 'C')
-	    {
-		    comprar(jogador);
+		switch (op)
+	   {
+	     case 's':
+	     case 'S':
+		    break;
+		case 'C':
+		case 'c':
+	        {
+			comprar(jogador);
 	        continue;
-	    }
-		
-		if(op == 'j' || op == 'J')
-		{
-		
-			escolha = escolher_peca(jogador);
-			while((b != escolha) && (i < 28))             //verifica qual é a peca escolhida a partir de seu numero de apresentacao das pecas de um jogador e de sua indexacao no array de pecas
-			{
+	        }
+	        break;
+	    case 'J':
+	    case 'j':
+	    	{
+		    escolha = escolher_peca(jogador);
+			while((b != escolha) && (i < 28))             //verifica qual a peca escolhida a partir de sua indexacao no array de pecas e seu status
+			  {
 				if(peca[i].status == jogador)
-				{
-					b++;
-				}
-				i++;
-			}
-			
+				  {
+				   b++;
+				  }
+				  i++;
+			  }
 			i--;
 			
 			lado = escolher_lado();
@@ -204,53 +196,73 @@ void jogar(char jogador)
 			if(lado == 'E' || lado == 'e')
 			   {
 				if(mesa[0].ladoE == peca[i].lado1 || mesa[0].ladoE == peca[i].lado2)            //verifica se e' possivel jogar a peca escolhida a partir do lado esquerdo da peca ja na mesa que e' sempre mesa[0]
-				{
+				  {
 				  carregaMesaE(i); 	
-				}
+				  }
+				else
+				  {
+				  apresenta_mensagem("Peca invalida! Tente novamente ou compre uma peca\n");
+				  system("pause");
+				  system("cls");
+				  continue;
+			      }
 			   }
 		    else if(lado == 'D' || lado == 'd')
-			    {
+			   {
 			    if(mesa[qtmesa-1].ladoD == peca[i].lado1 || mesa[qtmesa-1].ladoD == peca[i].lado2)            //verifica pelo lado direito da peca que ja esta' na peca de indice qtmesa-1
-				   {
-				    carregaMesaD(i);
-			       }
-				
-			    } 
-		}
-		if(jogador=='1')
+				  {
+				  carregaMesaD(i);
+			      }
+			    else
+			      {
+				  apresenta_mensagem("Peca invalida! Tente novamente ou compre uma peca\n");
+			      system("pause");
+			      system("cls");
+			      continue;
+			      }
+			   } 
+	        }break;
+	    
+		default:
+	    	system("cls");
+	    	apresenta_mensagem("Opcao Invalida!\n");
+			system("pause");
+		
+		if(jogador=='1')      //mudar o jogador para o da proxima rodada
 		   	jogador='2';
 		else
 		   	jogador='1';
-	}
+	    }
+   }
 	while(1);
 }
-
 
 void comprar(char jogador)
 {
 
-   int i = 14;          //as 14 primeiras peças já não estão mais livres
+   int i = 14;          //as 14 primeiras pecas ja nao estao mais livres
    while(i < 28)
    {
        if (peca[i].status == '0')
         {
-         peca[i].status = jogador;
-         break;
+        peca[i].status = jogador;
+        break;
         }
         i++;
    }
    if (i >= 28)
        apresenta_mensagem("Nada a comprar\n");
+    system("cls");
 }
 
 
 void carregaMesaE(int i)
 {
-//deslocamento de toda a mesa para abrir a primeira posição 0
+//deslocamento de toda a mesa para abrir a primeira posicao 0
     for(int j = qtmesa; j > 0; j--)
 	    mesa[j] = mesa[j-1];
-//verifica se será necessário inverter a peça a ser jogada e
-//joga na posição 0 da mesa
+//verifica se sera necessario inverter a peca a ser jogada e
+//joga na posicao 0 da mesa
 	if (peca[i].lado2 == mesaE)
 	{
 		mesa[0].ladoE = peca[i].lado1;
@@ -261,11 +273,11 @@ void carregaMesaE(int i)
 		mesa[0].ladoE = peca[i].lado2;
 		mesa[0].ladoD = peca[i].lado1;
 	}
-	//atualiza a variável global mesaE com o ladoE agora atualizado
+	//atualiza a variavel global mesaE com o ladoE agora atualizado
 	mesaE = mesa[0].ladoE;
 	
-	qtmesa++; //incrementa a qtde de peças na mesa
-	peca[i].status = 'M'; //atualiza o status da peça jogada
+	qtmesa++; //incrementa a qtde de pecas na mesa
+	peca[i].status = 'M'; //atualiza o status da peca jogada
 }
 
 void carregaMesaD(int i)

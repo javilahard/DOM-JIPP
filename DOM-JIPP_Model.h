@@ -7,7 +7,7 @@ Priscilla de Souza Jardim
 */
 
 int mesaE, mesaD;    //extremidades da mesa
-int qtmesa;       //qtde de peças na mesa
-char jogador;      //jogador atual em ação ‘1’ ou ‘2’
+int qtmesa;       
+char jogador;      
 
 
