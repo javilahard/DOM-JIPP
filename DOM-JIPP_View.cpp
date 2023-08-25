@@ -12,7 +12,6 @@ Priscilla de Souza Jardim
 
 int menu()
 { 
-    int resp;
     printf("===== DOMINO JIPP =====\n\n");
 	printf("1.Iniciar o jogo\n");
     printf("2.Sair\n");
