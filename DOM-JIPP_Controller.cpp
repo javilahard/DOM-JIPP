@@ -48,14 +48,11 @@ void inicia()
 	{
 	    resp = menu();
 		
-	     switch(resp)
-	     {
-		        case 1:
-		           inicia_jogo();
-		           break;
-		        case 2:
-		        	break;
-		 }
+	    if(resp==1)
+	       inicia_jogo();
+		
+		else if(resp==2)
+		   break;
 	}
 	while(1);
 }
@@ -169,7 +166,7 @@ void jogar(char jogador)
 	   {
 	     case 's':
 	     case 'S':
-		    break;
+		    exit(0);
 		case 'C':
 		case 'c':
 	        {
@@ -220,19 +217,22 @@ void jogar(char jogador)
 			      system("cls");
 			      continue;
 			      }
-			   } 
+			   }
+		    
+		    
 	        }break;
 	    
 		default:
 	    	system("cls");
 	    	apresenta_mensagem("Opcao Invalida!\n");
 			system("pause");
+			system("cls");
+		}
 		
 		if(jogador=='1')      //mudar o jogador para o da proxima rodada
 		   	jogador='2';
 		else
 		   	jogador='1';
-	    }
    }
 	while(1);
 }

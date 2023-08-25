@@ -14,13 +14,17 @@ int menu()
 { 
     printf("===== DOMINO JIPP =====\n\n");
 	printf("1.Iniciar o jogo\n");
-    printf("2.Sair\n");
+    printf("2.Sair\n\n");
+    printf("Opcao: ");
 	scanf("%d", &resp);
 	system("cls");
-	if(resp!=1)
+	if(resp!=1 && resp!=2)
+		{
 		printf("Opcao invalida!\n");
-	system("pause");
-	system("cls");
+		system("pause");
+	    system("cls");
+		return resp;
+	    }
 	return resp;
 }
 
@@ -81,7 +85,7 @@ char menu_jogada()
 	char op;
 	printf("J - Jogar (possiveis: %d ou %d)\n", mesa[0].ladoE, mesa[qtmesa-1].ladoD);
 	printf("C - Comprar\n");
-	printf("S - Sair (interromper o jogo)\n");
+	printf("S - Sair do jogo\n");
 	printf("Opcao: ");
 	scanf(" %c", &op);
 	return op;
@@ -90,7 +94,7 @@ char menu_jogada()
 int escolher_peca(char jogador)
 {
 	int es;
-	printf("Jogador %c: Escolha a peca para jogar (0 para desistir): ", jogador);
+	printf("Jogador %c: Escolha a peca para jogar: ", jogador);
     scanf("%d", &es);
 	return es;
 }
