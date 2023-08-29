@@ -196,9 +196,9 @@ void jogar(char jogador)
 			    continue;
 		    }
 			
-			if((mesa[qtmesa-1].ladoD == peca[i].lado1) || (mesa[qtmesa-1].ladoD == peca[i].lado2) || (mesaE == peca[i].lado1) || (mesaE == peca[i].lado2))                            // verifica se a peca escolhida e' possivel de ser jogada
+			if((mesaD == peca[i].lado1) || (mesaD == peca[i].lado2) || (mesaE == peca[i].lado1) || (mesaE == peca[i].lado2))                            // verifica se a peca escolhida e' possivel de ser jogada
 			{
-			   if((mesa[qtmesa-1].ladoD == mesaE) || (((mesaE == peca[i].lado1) || (mesaE == peca[i].lado2)) && ((mesa[qtmesa-1].ladoD == peca[i].lado1) || (mesa[qtmesa-1].ladoD == peca[i].lado2))))             //verifica a necessidade de deixar o usuario escolher o lado da mesa para jogar
+			   if((mesaE == mesaD) || (peca[i].lado1 == mesaE && peca[i].lado2 == mesaD) || (peca[i].lado1 == mesaD && peca[i].lado2 == mesaE))             //verifica a necessidade de deixar o usuario escolher o lado da mesa para jogar
 			   {
 			   	    lado = escolher_lado();                                                                                                                  
 			   	    if(lado == 'E' || lado == 'e')
@@ -215,7 +215,7 @@ void jogar(char jogador)
 				       continue;
 			        }
 			   }
-			   else if((mesa[qtmesa-1].ladoD == peca[i].lado1) || (mesa[qtmesa-1].ladoD == peca[i].lado2))                      // se nao precisar escolher o lado verifica em qual lado a peca sera jogada automaticamente apos a escolha
+			   else if((mesaD == peca[i].lado1) || (mesaD == peca[i].lado2))                      // se nao precisar escolher o lado verifica em qual lado a peca sera jogada automaticamente apos a escolha
 			   {
 					carregaMesaD(i);
 					system("cls");  
