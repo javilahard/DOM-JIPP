@@ -187,9 +187,18 @@ void jogar(char jogador)
 			}
 			i--;
 			
-			if((mesa[qtmesa-1].ladoD == peca[i].lado1) || (mesa[qtmesa-1].ladoD == peca[i].lado2) || (mesaE == peca[i].lado1) || (mesaE == peca[i].lado2))
+			if((b != escolha) && (i == 27))
 			{
-			   if((mesa[qtmesa-1].ladoD == mesaE) || (((mesaE == peca[i].lado1) || (mesaE == peca[i].lado2)) && ((mesa[qtmesa-1].ladoD == peca[i].lado1) || (mesa[qtmesa-1].ladoD == peca[i].lado2))))
+				system("cls");
+				apresenta_mensagem("Peca invalida! Voce nao possui essa peca. Tente novamente \n");        //caso o usuario digite uma peca diferente de suas opcoes na mao
+				system("pause");
+			    system("cls");
+			    continue;
+		    }
+			
+			if((mesa[qtmesa-1].ladoD == peca[i].lado1) || (mesa[qtmesa-1].ladoD == peca[i].lado2) || (mesaE == peca[i].lado1) || (mesaE == peca[i].lado2))                            // verifica se a peca escolhida e' possivel de ser jogada
+			{
+			   if((mesa[qtmesa-1].ladoD == mesaE) || (((mesaE == peca[i].lado1) || (mesaE == peca[i].lado2)) && ((mesa[qtmesa-1].ladoD == peca[i].lado1) || (mesa[qtmesa-1].ladoD == peca[i].lado2))))             //verifica a necessidade de deixar o usuario escolher o lado da mesa para jogar
 			   {
 			   	    lado = escolher_lado();                                                                                                                  
 			   	    if(lado == 'E' || lado == 'e')
@@ -200,13 +209,13 @@ void jogar(char jogador)
 			   	  
 				    else
 				    {
-				       apresenta_mensagem("Opcao invalida! Tente novamente\n");
+				       apresenta_mensagem("Opcao invalida! Tente novamente\n");                                    //consistencia do lado escolhido
 				       system("pause");
 				       system("cls");
 				       continue;
 			        }
 			   }
-			   else if((mesa[qtmesa-1].ladoD == peca[i].lado1) || (mesa[qtmesa-1].ladoD == peca[i].lado2)) 
+			   else if((mesa[qtmesa-1].ladoD == peca[i].lado1) || (mesa[qtmesa-1].ladoD == peca[i].lado2))                      // se nao precisar escolher o lado verifica em qual lado a peca sera jogada automaticamente apos a escolha
 			   {
 					carregaMesaD(i);
 					system("cls");  
@@ -222,7 +231,7 @@ void jogar(char jogador)
 			else
 			{
 				system("cls");
-			    apresenta_mensagem("Peca invalida! Tente novamente ou compre uma peca\n");
+			    apresenta_mensagem("Peca invalida! Tente novamente ou compre uma peca\n");                              //caso a peca escolhida nao seja compativel com nenhuma das extremidades da mesa
 			    system("pause");
 			    system("cls");
 			    continue;
@@ -241,7 +250,7 @@ void jogar(char jogador)
 			continue;
 		}
 		
-		}
+	   }
 		
 		if(jogador=='1')      //mudar o jogador para o da proxima rodada
 		   	jogador='2';
