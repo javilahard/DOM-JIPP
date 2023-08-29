@@ -169,74 +169,86 @@ void jogar(char jogador)
 		    exit(0);
 		case 'C':
 		case 'c':
-	        {
-			comprar(jogador);
+	    {
+		    comprar(jogador);
 	        continue;
-	        }
-	        break;
+	    }
 	    case 'J':
 	    case 'j':
-	    	{
+	    {
 		    escolha = escolher_peca(jogador);
 			while((b != escolha) && (i < 28))             //verifica qual a peca escolhida a partir de sua indexacao no array de pecas e seu status
-			  {
+			{
 				if(peca[i].status == jogador)
-				  {
+				{
 				   b++;
-				  }
-				  i++;
-			  }
+				}
+				i++;
+			}
 			i--;
 			
-			lado = escolher_lado();
+			if((mesa[qtmesa-1].ladoD == peca[i].lado1) || (mesa[qtmesa-1].ladoD == peca[i].lado2) || (mesaE == peca[i].lado1) || (mesaE == peca[i].lado2))
+			{
+			   if((mesa[qtmesa-1].ladoD == mesaE) || (((mesaE == peca[i].lado1) || (mesaE == peca[i].lado2)) && ((mesa[qtmesa-1].ladoD == peca[i].lado1) || (mesa[qtmesa-1].ladoD == peca[i].lado2))))
+			   {
+			   	    lado = escolher_lado();                                                                                                                  
+			   	    if(lado == 'E' || lado == 'e')
+			   	        carregaMesaE(i);
+			   	  
+			   	    else if(lado == 'D' || lado == 'd')
+			   	        carregaMesaD(i);
+			   	  
+				    else
+				    {
+				       apresenta_mensagem("Opcao invalida! Tente novamente\n");
+				       system("pause");
+				       system("cls");
+				       continue;
+			        }
+			   }
+			   else if((mesa[qtmesa-1].ladoD == peca[i].lado1) || (mesa[qtmesa-1].ladoD == peca[i].lado2)) 
+			   {
+					carregaMesaD(i);
+					system("cls");  
+			   }                 
+			                         
+			   else
+			   {
+			        carregaMesaE(i);
+			        system("cls");  
+			   }
+		    }
 			
-			if(lado == 'E' || lado == 'e')
-			   {
-				if(mesa[0].ladoE == peca[i].lado1 || mesa[0].ladoE == peca[i].lado2)            //verifica se e' possivel jogar a peca escolhida a partir do lado esquerdo da peca ja na mesa que e' sempre mesa[0]
-				  {
-				  carregaMesaE(i); 	
-				  }
-				else
-				  {
-				  apresenta_mensagem("Peca invalida! Tente novamente ou compre uma peca\n");
-				  system("pause");
-				  system("cls");
-				  continue;
-			      }
-			   }
-		    else if(lado == 'D' || lado == 'd')
-			   {
-			    if(mesa[qtmesa-1].ladoD == peca[i].lado1 || mesa[qtmesa-1].ladoD == peca[i].lado2)            //verifica pelo lado direito da peca que ja esta' na peca de indice qtmesa-1
-				  {
-				  carregaMesaD(i);
-			      }
-			    else
-			      {
-				  apresenta_mensagem("Peca invalida! Tente novamente ou compre uma peca\n");
-			      system("pause");
-			      system("cls");
-			      continue;
-			      }
-			   }
+			else
+			{
+				system("cls");
+			    apresenta_mensagem("Peca invalida! Tente novamente ou compre uma peca\n");
+			    system("pause");
+			    system("cls");
+			    continue;
+			}
+			
+		    break;
 		    
-		    
-	        }break;
+	    }
 	    
 		default:
-	    	{
+	    {
 			system("cls");
 	    	apresenta_mensagem("Opcao Invalida!\n");
 			system("pause");
 			system("cls");
 			continue;
-		    }
+		}
+		
 		}
 		
 		if(jogador=='1')      //mudar o jogador para o da proxima rodada
 		   	jogador='2';
 		else
 		   	jogador='1';
-   }
+    
+	}
 	while(1);
 }
 
