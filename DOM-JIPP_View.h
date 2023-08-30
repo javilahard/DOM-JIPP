@@ -15,6 +15,7 @@ char menu_jogada();
 int escolher_peca(char jogador);
 char escolher_lado();
 void flush_in();
+void venc_batida(char jogador);
 int  resp;
 
 

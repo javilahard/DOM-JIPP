@@ -153,12 +153,20 @@ void jogar(char jogador)
 	
 	
 	char op, lado;
+	int soma_lados1, soma_lados2, qtdpecas1, qtdpecas2;
+	
+	qtd_passar = 0;
+	soma_lados1 = 0;                  //soma dos lados de todas as pecas pertencentes a cada jogador quando os 2 passarem a vez
+	soma_lados2 = 0;
+	qtdpecas1 = 0;                  //quantida de pecas de determinado jogador quando os 2 passarem a vez
+	qtdpecas2 = 0;
+	
 	do
 	{
 		
 		int escolha, b = 0, i = 0;
 		
-	    mostra_mesa();
+		mostra_mesa();
 		apresenta_peca(jogador);
 		op = menu_jogada();
 		
@@ -173,6 +181,52 @@ void jogar(char jogador)
 		    comprar(jogador);
 	        continue;
 	    }
+	    case 'P':
+	    case 'p':
+	    {
+	    	if(passar(jogador) == TRUE)
+	    	{
+			   if(jogador == '1')
+			      jogador = '2';
+               else
+                  jogador = '1';
+		    }
+	    	
+			if(qtd_passar==2)                              // se os 2 jogadores passarem a vez o jogo acabou
+			{
+				for(int j=0; j<28; j++)                //percorre todas as pecas e verifica as pecas que tem status jogador
+	    	   {
+	    	   	    if(peca[j].status=='1' || peca[j].status=='2')
+	    	   	    {
+	    	   	    	if(peca[j].status=='1')
+	    	   	        {
+							qtdpecas1++;
+						    soma_lados1 = soma_lados1 + peca[j].lado1 + peca[j].lado2;
+					    }
+	    	   	    	else
+	    	   	        {
+							qtdpecas2++;
+							soma_lados2 = soma_lados2 + peca[j].lado1 + peca[j].lado2;
+					    }
+	    	   	    }
+	    		}
+			   if(qtdpecas1 < qtdpecas2)
+			        apresenta_mensagem("Jogador 1 venceu! \n"); 
+			   
+			   else if(qtdpecas1 > qtdpecas2)
+			        apresenta_mensagem("Jogador 2 venceu! \n");
+			   else
+			   {
+			   	    if(soma_lados1 < soma_lados2)
+					   apresenta_mensagem("Jogador 1 venceu! \n"); 
+					else
+					   apresenta_mensagem("Jogador 2 venceu! \n");     
+			   }
+			   break;
+			}
+			continue;
+			
+		}
 	    case 'J':
 	    case 'j':
 	    {
@@ -198,6 +252,8 @@ void jogar(char jogador)
 			
 			if((mesaD == peca[i].lado1) || (mesaD == peca[i].lado2) || (mesaE == peca[i].lado1) || (mesaE == peca[i].lado2))                            // verifica se a peca escolhida e' possivel de ser jogada
 			{
+			   venc_batida(jogador);               //depois de verificar que a peca pode ser jogada, verifica-se se e' a ultima peca do jogador da vez.
+			   
 			   if((mesaE == mesaD) || (peca[i].lado1 == mesaE && peca[i].lado2 == mesaD) || (peca[i].lado1 == mesaD && peca[i].lado2 == mesaE))             //verifica a necessidade de deixar o usuario escolher o lado da mesa para jogar
 			   {
 			   	    lado = escolher_lado();                                                                                                                  
@@ -237,7 +293,9 @@ void jogar(char jogador)
 			    continue;
 			}
 			
-		    break;
+			
+			
+			break;
 		    
 	    }
 	    
@@ -258,7 +316,7 @@ void jogar(char jogador)
 		   	jogador='1';
     
 	}
-	while(1);
+	while(qtd_passar < 2);
 }
 
 void comprar(char jogador)
@@ -275,8 +333,60 @@ void comprar(char jogador)
         i++;
    }
    if (i >= 28)
-       apresenta_mensagem("Nada a comprar\n");
+       {
+       system("cls");
+	   apresenta_mensagem("Nada a comprar\n");
+       system("pause");
+       }
     system("cls");
+}
+
+booleano passar(char jogador)
+{
+  
+  system("cls");
+  if (depositoVazio() == FALSE)
+  {
+    apresenta_mensagem("Passagem bloqueada. O deposito nao esta vazio. Voce deve jogar e/ou comprar");
+    system("pause");
+    system("cls");
+    return FALSE;
+  }
+  else
+  {
+    for(int j=0; j<28; j++)                       //percorre todas as pecas e verifica as pecas que tem status do jogador do momento e se existe alguma que pode ser jogada.
+   {
+  		if(peca[j].status == jogador)
+  		{
+  		    if((mesaD == peca[j].lado1) || (mesaD == peca[j].lado2) || (mesaE == peca[j].lado1) || (mesaE == peca[j].lado2))
+			    {
+			      system("cls");
+			      apresenta_mensagem("Passagem bloqueada. Faca sua jogada!\n");
+			      system("pause");
+			      system("cls");
+			      qtd_passar--;                     //dessa forma qtd_passar so' sera igual a 2 quando um jogador passar em seguida do outro
+				  return FALSE;
+			    }
+	    }
+    }
+	system("cls");
+    apresenta_mensagem("Passagem concedida!\n");
+	system("pause");
+	system("cls");
+	qtd_passar++;
+    return TRUE;
+  }
+			
+}
+//verifica se o deposito está vazio
+booleano depositoVazio()
+{
+  for(int i = 0; i < 28; i++)
+  {
+    if (peca[i].status == '0') 
+    return FALSE;
+  }
+return TRUE;
 }
 
 

@@ -15,6 +15,8 @@ int peca_inicial();
 void jogar(char jogador);
 void mostra_mesa();
 void comprar(char jogador);
+booleano passar(char jogador);
+booleano depositoVazio();
 void carregaMesaE(int a);
 void carregaMesaD(int a);
 

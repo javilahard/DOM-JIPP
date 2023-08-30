@@ -85,8 +85,10 @@ char menu_jogada()
 	char op;
 	printf("J - Jogar (possiveis: %d ou %d)\n", mesa[0].ladoE, mesa[qtmesa-1].ladoD);
 	printf("C - Comprar\n");
+	printf("P - Passar\n");
 	printf("S - Sair do jogo\n");
 	printf("Opcao: ");
+	flush_in();
 	scanf(" %c", &op);
 	return op;
 }
@@ -113,6 +115,25 @@ void flush_in() //ou void fclear()
 {
 	int ch;
 	while( (ch = fgetc(stdin)) != EOF && ch != '\n');
+}
+
+void venc_batida(char jogador)
+{
+	int k, p;
+	p=0;
+	k=0;
+	while(k<28)
+	{
+        if(peca[k].status == jogador)
+			p++;
+		k++;
+	}
+		
+	if(p==1)
+	{
+	   printf("Jogador %c bateu!\n", jogador);
+	   exit(0);
+    }
 }
 
 
