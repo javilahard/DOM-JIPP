@@ -51,13 +51,12 @@ void inicia()
 	       inicia_jogo();
 	    else if(resp==2)
 	    {
-	       apresenta_mensagem("===REGRAS DO DOMINO JIPP===\n\nRegra1: Cada jogador come�a com 7 pecas aleatorias, podendo comprar sempre que precisar de uma peca.\nRegra2: O jogo inicia com o jogador que tiver a peca [6|6].\n");
-		   apresenta_mensagem("Regra3: Caso ninguem tenha a proxima peca mais alta deve ser jogada.\nRegra4: O jogo ocorre no sentido anti-horario, e os jogadores devem colocar as pecas correspondendo aos numeros presentes nas duas pontas do jogo.\n");
-	       apresenta_mensagem("Regra5: Antes de cada jogada pode-se comprar quantas pecas quiser ate acabarem, entretanto devemos ressaltar que ganha aquele com o menor numero de pecas ou o menor numero de pontos somados por peca.\n");
-		   apresenta_mensagem("Regra6: Na sua vez cada jogador deve colocar uma das pecas em uma das extremidades da mesa, de forma que os pontos coincidam.\nRegra7: Quando o jogador coloca sua pe�a sobre a mesa, seu turno acaba e passa para o proximo.\n");
-		   apresenta_mensagem("Regra8: Caso um jogador nao possa jogar, deve comprar do monte ate encontrar uma peca ou ate as pecas do monte acabarem. So em uma dessas condicoes o jogador pode passar a vez.\n");
-	       apresenta_mensagem("Regra9: O jogo continua o estoque de pecas esteja vazio. Alem disso quando um jogador coloca ultima pedra na mesa, essa acao e chamada de bater e eletorna-se o vencedor do jogo  \n");
-		   apresenta_mensagem("Regra10: Existem casos onde nenhum dos jogadores pode continuar a partida. Acontece quando nao tem uma peca possivel de ser lancada na mesa e tambem o deposito esta vazio. Nesse momento a partida esta fechada. Vence aquele que tiver menos pecas. Caso empatem, os jogadores contar�o os pontos das pedras que tem o jogador com menos pontos vence a partida\n");
+	       apresenta_mensagem("===REGRAS DO DOMINO JIPP===\n\nRegra1: Cada jogador comeca com 7 pecas aleatorias, podendo comprar quantas pecas quiser no seu turno.\n");
+		   apresenta_mensagem("Regra2: O jogo inicia com o jogador que tiver a peca [6|6]. Caso ninguem tenha a [6|6] entao calcula-se outra primeira peca que e' jogada e o primeiro turno sera do jogador que nao tinha a primeira peca.\n");
+	       apresenta_mensagem("Regra3: Na sua vez cada jogador deve colocar uma das pecas em uma das extremidades da mesa, de forma que os lados coincidam.\n\nRegra4: Quando o jogador coloca sua peca sobre a mesa, seu turno acaba e passa para o proximo.\n");
+		   apresenta_mensagem("Regra5: Caso um jogador nao possua uma peca compativel para jogar, deve comprar do monte ate encontrar uma peca ou ate as pecas do monte acabarem. So quando atendidas essas condicoes o jogador pode passar a vez(passar o turno sem jogar uma peca).\n");
+	       apresenta_mensagem("Regra6: O jogo pode acabar de duas maneiras, porem nos dois casos o deposito de pecas deve estar vazio. A primeira e' se um jogador colocar sua ultima peca na mesa, essa acao e' chamada de bater e ele vence o jogo.");
+		   apresenta_mensagem("A segunda sao casos onde nenhum dos jogadores pode continuar a partida, acontece quando ninguem tem uma peca possivel de ser lancada na mesa, nesse momento a partida esta fechada. Vence aquele que tiver menos pecas e caso empatem, vence aquele com menos pontos(soma dos lados das pecas).\n");
 	       system("pause");
 	       system("cls");
 		}
