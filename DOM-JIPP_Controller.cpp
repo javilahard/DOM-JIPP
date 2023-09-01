@@ -163,7 +163,7 @@ void jogar(char jogador)
 	char op, lado;
 	int soma_lados1, soma_lados2, qtdpecas1, qtdpecas2;
 	
-	
+	qtd_passar = 0;
 	soma_lados1 = 0;                  //soma dos lados de todas as pecas pertencentes a cada jogador quando os 2 passarem a vez
 	soma_lados2 = 0;
 	qtdpecas1 = 0;                  //quantida de pecas de determinado jogador quando os 2 passarem a vez
