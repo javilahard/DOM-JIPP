@@ -1,6 +1,5 @@
-
-/*DOM-JIPP_Controller.cpp - Etapa 3
-24/08/2023
+/*DOM-JIPP_Controller.cpp - Etapa 4
+31/08/2023
 Igor Costa
 Joao Avila Harduin
 Pedro Evaristo de Oliveira
@@ -13,16 +12,16 @@ Priscilla de Souza Jardim
 
 void cria_peca(tipo_peca peca[28])	               //preenchimento de cada peca com os lados em ordem crescente
 {
-	int p = 0;
+	int k = 0;
+	int j, i;
 	
-	for(int i = 0; i <= 6; i++)
+	for(i = 0; i <= 6; i++)
 	{
-		for(int j = i; j <= 6; j++)
+		for(j = i; j <= 6; j++)
 		{
-			peca[p].lado1 = i;
-			peca[p].lado2 = j;
-			peca[p].status = '0';
-			p++;
+			peca[k].lado1 = i;
+			peca[k].lado2 = j;
+			k++;
 		}
 	}
 }
@@ -50,11 +49,21 @@ void inicia()
 		
 	    if(resp==1)
 	       inicia_jogo();
-		
-		else if(resp==2)
-		   break;
+	    else if(resp==2)
+	    {
+	       apresenta_mensagem("===REGRAS DO DOMINO JIPP===\n\nRegra1: Cada jogador come�a com 7 pecas aleatorias, podendo comprar sempre que precisar de uma peca.\nRegra2: O jogo inicia com o jogador que tiver a peca [6|6].\n");
+		   apresenta_mensagem("Regra3: Caso ninguem tenha a proxima peca mais alta deve ser jogada.\nRegra4: O jogo ocorre no sentido anti-horario, e os jogadores devem colocar as pecas correspondendo aos numeros presentes nas duas pontas do jogo.\n");
+	       apresenta_mensagem("Regra5: Antes de cada jogada pode-se comprar quantas pecas quiser ate acabarem, entretanto devemos ressaltar que ganha aquele com o menor numero de pecas ou o menor numero de pontos somados por peca.\n");
+		   apresenta_mensagem("Regra6: Na sua vez cada jogador deve colocar uma das pecas em uma das extremidades da mesa, de forma que os pontos coincidam.\nRegra7: Quando o jogador coloca sua pe�a sobre a mesa, seu turno acaba e passa para o proximo.\n");
+		   apresenta_mensagem("Regra8: Caso um jogador nao possa jogar, deve comprar do monte ate encontrar uma peca ou ate as pecas do monte acabarem. So em uma dessas condicoes o jogador pode passar a vez.\n");
+	       apresenta_mensagem("Regra9: O jogo continua o estoque de pecas esteja vazio. Alem disso quando um jogador coloca ultima pedra na mesa, essa acao e chamada de bater e eletorna-se o vencedor do jogo  \n");
+		   apresenta_mensagem("Regra10: Existem casos onde nenhum dos jogadores pode continuar a partida. Acontece quando nao tem uma peca possivel de ser lancada na mesa e tambem o deposito esta vazio. Nesse momento a partida esta fechada. Vence aquele que tiver menos pecas. Caso empatem, os jogadores contar�o os pontos das pedras que tem o jogador com menos pontos vence a partida\n");
+	       system("pause");
+	       system("cls");
+		}
+	
 	}
-	while(1);
+	while(resp != 3);
 }
 
 
@@ -155,16 +164,17 @@ void jogar(char jogador)
 	char op, lado;
 	int soma_lados1, soma_lados2, qtdpecas1, qtdpecas2;
 	
-	qtd_passar = 0;
+	
 	soma_lados1 = 0;                  //soma dos lados de todas as pecas pertencentes a cada jogador quando os 2 passarem a vez
 	soma_lados2 = 0;
 	qtdpecas1 = 0;                  //quantida de pecas de determinado jogador quando os 2 passarem a vez
 	qtdpecas2 = 0;
+	p = 1;                     //inicializa "p" com um valor aleatorio
 	
 	do
 	{
-		
 		int escolha, b = 0, i = 0;
+		                 
 		
 		mostra_mesa();
 		apresenta_peca(jogador);
@@ -172,17 +182,14 @@ void jogar(char jogador)
 		
 		switch (op)
 	   {
-	    case 's':
 	    case 'S':
-		    exit(0);
+		    break;
 		case 'C':
-		case 'c':
-	    {
+		{
 		    comprar(jogador);
 	        continue;
 	    }
 	    case 'P':
-	    case 'p':
 	    {
 	    	if(passar(jogador) == TRUE)
 	    	{
@@ -210,25 +217,26 @@ void jogar(char jogador)
 					    }
 	    	   	    }
 	    		}
-			   if(qtdpecas1 < qtdpecas2)
-			        apresenta_mensagem("Jogador 1 venceu! \n"); 
+	    	   if(qtdpecas1 < qtdpecas2)
+			        apresenta_mensagem("\nJogador 1 venceu!\n"); 
 			   
 			   else if(qtdpecas1 > qtdpecas2)
-			        apresenta_mensagem("Jogador 2 venceu! \n");
+			        apresenta_mensagem("\nJogador 2 venceu!\n");
 			   else
 			   {
 			   	    if(soma_lados1 < soma_lados2)
-					   apresenta_mensagem("Jogador 1 venceu! \n"); 
+					   apresenta_mensagem("\nJogador 1 venceu!\n"); 
 					else
-					   apresenta_mensagem("Jogador 2 venceu! \n");     
+					   apresenta_mensagem("\nJogador 2 venceu!\n");     
 			   }
+			   system("pause");
+			   system("cls");
 			   break;
 			}
 			continue;
 			
 		}
 	    case 'J':
-	    case 'j':
 	    {
 		    escolha = escolher_peca(jogador);
 			while((b != escolha) && (i < 28))             //verifica qual a peca escolhida a partir de sua indexacao no array de pecas e seu status
@@ -252,15 +260,17 @@ void jogar(char jogador)
 			
 			if((mesaD == peca[i].lado1) || (mesaD == peca[i].lado2) || (mesaE == peca[i].lado1) || (mesaE == peca[i].lado2))                            // verifica se a peca escolhida e' possivel de ser jogada
 			{
-			   venc_batida(jogador);               //depois de verificar que a peca pode ser jogada, verifica-se se e' a ultima peca do jogador da vez.
-			   
-			   if((mesaE == mesaD) || (peca[i].lado1 == mesaE && peca[i].lado2 == mesaD) || (peca[i].lado1 == mesaD && peca[i].lado2 == mesaE))             //verifica a necessidade de deixar o usuario escolher o lado da mesa para jogar
+				
+				qtd_passar = 0;
+				
+				
+				if((mesaE == mesaD) || (peca[i].lado1 == mesaE && peca[i].lado2 == mesaD) || (peca[i].lado1 == mesaD && peca[i].lado2 == mesaE))             //verifica a necessidade de deixar o usuario escolher o lado da mesa para jogar
 			   {
 			   	    lado = escolher_lado();                                                                                                                  
-			   	    if(lado == 'E' || lado == 'e')
+			   	    if(lado == 'E')
 			   	        carregaMesaE(i);
 			   	  
-			   	    else if(lado == 'D' || lado == 'd')
+			   	    else if(lado == 'D')
 			   	        carregaMesaD(i);
 			   	  
 				    else
@@ -282,7 +292,11 @@ void jogar(char jogador)
 			        carregaMesaE(i);
 			        system("cls");  
 			   }
-		    }
+			   
+			   venc_batida(jogador);                 //depois de verificar que a peca pode ser jogada.
+			   
+		   }
+			
 			
 			else
 			{
@@ -292,12 +306,9 @@ void jogar(char jogador)
 			    system("cls");
 			    continue;
 			}
-			
-			
-			
 			break;
-		    
-	    }
+	   }
+	
 	    
 		default:
 	    {
@@ -316,7 +327,8 @@ void jogar(char jogador)
 		   	jogador='1';
     
 	}
-	while(qtd_passar < 2);
+	while(qtd_passar != 2 && p!= 0 && op!= 'S');
+	
 }
 
 void comprar(char jogador)
@@ -364,14 +376,10 @@ booleano passar(char jogador)
 			      apresenta_mensagem("Passagem bloqueada. Faca sua jogada!\n");
 			      system("pause");
 			      system("cls");
-			      qtd_passar--;                     //dessa forma qtd_passar so' sera igual a 2 quando um jogador passar em seguida do outro
-				  return FALSE;
-			    }
+			      return FALSE;                     //dessa forma qtd_passar so' sera igual a 2 quando um jogador passar em seguida do outro
+				}
 	    }
     }
-	system("cls");
-    apresenta_mensagem("Passagem concedida!\n");
-	system("pause");
 	system("cls");
 	qtd_passar++;
     return TRUE;
@@ -430,6 +438,33 @@ void carregaMesaD(int i)
 	mesaD = mesa[qtmesa].ladoD;
 	qtmesa++;
 	peca[i].status = 'M'; 
+}
+
+void venc_batida(char jogador)
+{
+	if(depositoVazio() == TRUE)
+	{
+	   int k;
+	   k = 0;        //qtd de pecas total 
+	   p = 0;             
+               
+	   while(k<28)
+	   {
+          if(peca[k].status == jogador)
+			 p++;                    
+		  k++;
+	   }
+	   
+	   if(p == 0)                   //se o jogador em questao tiver nenhuma peca na mao depois de verificado que ela pode ser jogada e o deposito esta vazio o jogador bate.
+	   {
+	   	   mostra_mesa();
+		   apresenta_peca(jogador);
+	   	   print_bateu(jogador);
+	       system("pause");
+	       system("cls");
+	   }
+    }
+    
 }
 
 

@@ -1,5 +1,5 @@
-/*DOM-JIPP_Controller.h - Etapa 3
-24/08/2023
+/*DOM-JIPP_Controller.h - Etapa 4
+31/08/2023
 Igor Costa
 Joao Avila Harduin
 Pedro Evaristo de Oliveira
@@ -17,8 +17,8 @@ void mostra_mesa();
 void comprar(char jogador);
 booleano passar(char jogador);
 booleano depositoVazio();
-void carregaMesaE(int a);
-void carregaMesaD(int a);
+void carregaMesaE(int i);
+void carregaMesaD(int i);
 
 
 
