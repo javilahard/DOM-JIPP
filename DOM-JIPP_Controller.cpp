@@ -174,7 +174,10 @@ void jogar(char jogador)
 	{
 		int escolha, b = 0, i = 0;
 		                 
-		
+		venc_batida(jogador);                /*funcao de batida precisa estar no comeco para o caso de um jogador jogar sua ultima peca e o deposito ainda nao esta vazio, 
+		                                       entao quando a vez for dele novamente e o deposito estiver vazio ele conseguir bater*/
+		if(p==0)                         //se alguem bater sai do jogo imediatamente e mostra o menu de opcoes da partida.
+		   break;
 		mostra_mesa();
 		apresenta_peca(jogador);
 		op = menu_jogada();
@@ -225,8 +228,8 @@ void jogar(char jogador)
 			   {
 			   	    if(soma_lados1 < soma_lados2)
 					   apresenta_mensagem("\nJogador 1 venceu!\n"); 
-					else
-					   apresenta_mensagem("\nJogador 2 venceu!\n");     
+					else if(soma_lados1 > soma_lados2)
+					   apresenta_mensagem("\nJogador 2 venceu!\n"); 
 			   }
 			   system("pause");
 			   system("cls");
@@ -385,7 +388,7 @@ booleano passar(char jogador)
   }
 			
 }
-//verifica se o deposito está vazio
+//verifica se o deposito esta vazio
 booleano depositoVazio()
 {
   for(int i = 0; i < 28; i++)
