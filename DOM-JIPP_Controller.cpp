@@ -220,23 +220,21 @@ void jogar(char jogador)
 					    }
 	    	   	    }
 	    		}
-	    	   print_qtd_pecas1(qtdpecas1);
-	    	   print_qtd_pecas2(qtdpecas2);
+	    	   print_qtd_pecas(qtdpecas1, qtdpecas2);
 			   
 			   if(qtdpecas1 < qtdpecas2)
-			        apresenta_mensagem("\n Jogador 1 venceu!\n"); 
+			        apresenta_mensagem("\n===Jogador 1 venceu!===\n"); 
 			   
 			   else if(qtdpecas1 > qtdpecas2)
-			        apresenta_mensagem("\n Jogador 2 venceu!\n");
+			        apresenta_mensagem("\n===Jogador 2 venceu!===\n");
 			   else
 			   {
-			   	    print_pontosj1(soma_lados1);
-			   	    print_pontosj2(soma_lados2);
+			   	    print_pontos(soma_lados1, soma_lados2);
 			   	    
-					if(soma_lados1 < soma_lados2)
-					   apresenta_mensagem("\n Jogador 1 venceu!\n"); 
+			   	    if(soma_lados1 < soma_lados2)
+					   apresenta_mensagem("\n===Jogador 1 venceu!===\n"); 
 					else if(soma_lados1 > soma_lados2)
-					   apresenta_mensagem("\n Jogador 2 venceu!\n"); 
+					   apresenta_mensagem("\n===Jogador 2 venceu!===\n"); 
 			   }
 			   system("pause");
 			   system("cls");

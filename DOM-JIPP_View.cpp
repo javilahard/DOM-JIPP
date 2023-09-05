@@ -105,28 +105,21 @@ void flush_in() //ou void fclear()
 
 void print_bateu(char jogador)
 {
-	printf("\n===Resultado da partida===\n\nO Jogador %c jogou sua ultima peca na mesa e o monte esta' vazio!\n\nEle bateu!\n", jogador);
+	printf("\n===Resultado da partida===\n\nO Jogador %c jogou sua ultima peca na mesa e o monte esta' vazio!\n\n===Jogador %c bateu!===\n", jogador, jogador);
 }
 
-void print_qtd_pecas1(int qtd_pecas1)
+void print_qtd_pecas(int qtd_pecas1, int qtd_pecas2)
 {
-	printf(" Qtd de pecas Jogador 1: %d\n\n", qtd_pecas1);
+	printf(" Qtd de pecas Jogador 1: %d\n\n Qtd de pecas Jogador 2: %d\n", qtd_pecas1, qtd_pecas2);
 }
 
-void print_qtd_pecas2(int qtd_pecas2)
+
+void print_pontos(int pontos1, int pontos2)
 {
-	printf(" Qtd de pecas Jogador 2: %d\n", qtd_pecas2);
+	printf("\n Pontos Jogador 1: %d\n\n Pontos Jogador 2: %d\n", pontos1, pontos2);
 }
 
-void print_pontosj1(int pontos1)
-{
-	printf(" \nPontos Jogador 1: %d\n", pontos1);
-}
 
-void print_pontosj2(int pontos2)
-{
-	printf(" \nPontos Jogador 2: %d\n", pontos2);
-}
 
 
 
