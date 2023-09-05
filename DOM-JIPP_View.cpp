@@ -105,7 +105,7 @@ void flush_in() //ou void fclear()
 
 void print_bateu(char jogador)
 {
-	printf("\n===Resultado da partida===\n\nO Jogador %c jogou sua ultima peca na mesa e o monte esta' vazio!\n\n Ele bateu!\n", jogador);
+	printf("\n===Resultado da partida===\n\nO Jogador %c jogou sua ultima peca na mesa e o monte esta' vazio!\n\nEle bateu!\n", jogador);
 }
 
 void print_qtd_pecas1(int qtd_pecas1)
