@@ -17,6 +17,10 @@ void flush_in();
 void venc_batida(char jogador);
 int  resp;
 void print_bateu(char jogador);
+void print_qtd_pecas1(int qtd_pecas1);
+void print_qtd_pecas2(int qtd_pecas2);
+void print_pontosj1(int pontos1);
+void print_pontosj2(int pontos2);
 
 
 

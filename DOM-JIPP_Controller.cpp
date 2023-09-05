@@ -203,6 +203,7 @@ void jogar(char jogador)
 	    	
 			if(qtd_passar==2)                              // se os 2 jogadores passarem a vez o jogo acabou
 			{
+				apresenta_mensagem("Os dois jogadores passaram a vez em seguida!\n===Resultado da partida===\n\n");
 				for(int j=0; j<28; j++)                //percorre todas as pecas e verifica as pecas que tem status jogador
 	    	   {
 	    	   	    if(peca[j].status=='1' || peca[j].status=='2')
@@ -219,17 +220,23 @@ void jogar(char jogador)
 					    }
 	    	   	    }
 	    		}
-	    	   if(qtdpecas1 < qtdpecas2)
-			        apresenta_mensagem("\nJogador 1 venceu!\n"); 
+	    	   print_qtd_pecas1(qtdpecas1);
+	    	   print_qtd_pecas2(qtdpecas2);
+			   
+			   if(qtdpecas1 < qtdpecas2)
+			        apresenta_mensagem("\n Jogador 1 venceu!\n"); 
 			   
 			   else if(qtdpecas1 > qtdpecas2)
-			        apresenta_mensagem("\nJogador 2 venceu!\n");
+			        apresenta_mensagem("\n Jogador 2 venceu!\n");
 			   else
 			   {
-			   	    if(soma_lados1 < soma_lados2)
-					   apresenta_mensagem("\nJogador 1 venceu!\n"); 
+			   	    print_pontosj1(soma_lados1);
+			   	    print_pontosj2(soma_lados2);
+			   	    
+					if(soma_lados1 < soma_lados2)
+					   apresenta_mensagem("\n Jogador 1 venceu!\n"); 
 					else if(soma_lados1 > soma_lados2)
-					   apresenta_mensagem("\nJogador 2 venceu!\n"); 
+					   apresenta_mensagem("\n Jogador 2 venceu!\n"); 
 			   }
 			   system("pause");
 			   system("cls");
