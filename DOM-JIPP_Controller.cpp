@@ -502,6 +502,7 @@ void gravaCadastro()
    sitJogo.jogadorJogo = jogador;
    sitJogo.mesaDJogo = mesaD;
    sitJogo.mesaEJogo = mesaE;
+   sitJogo.qtd_passarJogo = qtd_passar;
    
    if((fp = fopen("CAD_DOMINO", "w")) == NULL)
    {
@@ -606,6 +607,8 @@ void recuperaCadastro()
    jogador = sitJogo.jogadorJogo;
    mesaD = sitJogo.mesaDJogo;
    mesaE = sitJogo.mesaEJogo;
+   qtd_passar = sitJogo.qtd_passarJogo;
+   
    apresenta_mensagem("retornando ao jogo recuperado");
    system("pause");
    jogar(jogador);

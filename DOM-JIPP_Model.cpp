@@ -29,7 +29,7 @@ struct Jogo
  int jogadorJogo; //jogador atual
  int mesaDJogo; //extremidade direita da mesa
  int mesaEJogo; //extremidade esquerda da mesa
-
+ int qtd_passarJogo;
 } sitJogo; //situação do jogo
 
 tipo_peca peca[28];
