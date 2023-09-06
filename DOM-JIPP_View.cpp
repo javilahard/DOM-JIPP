@@ -17,11 +17,13 @@ int menu()
     printf("===== DOMINO JIPP =====\n\n");
 	printf("1.Iniciar o jogo\n");
 	printf("2.Regras gerais do jogo\n");
-    printf("3.Sair\n\n");
+	printf("3.Gravar partida\n");
+	printf("4.Recuperar partida gravada\n");
+    printf("5.Sair\n\n");
     printf("Opcao: ");
-	scanf("%d", &resp);
-	system("cls");
-	if(resp!=1 && resp!=2 && resp!=3)
+    scanf("%d", &resp);
+    system("cls");
+	if(resp!=1 && resp!=2 && resp!=3 && resp!=4 && resp!=5)
 		{
 		printf("Opcao invalida!\n");
 		system("pause");
@@ -31,15 +33,15 @@ int menu()
 	return resp;
 }
 
-void apresenta_peca(char jogador)
+void apresenta_peca(char jogadorrr)
 {
 	int a = 1;
 	
-	printf("JOGADOR %c: ", jogador);
+	printf("JOGADOR %c: ", jogadorrr);
 	
 	for(int i = 0; i < 28; i++)
 	{
-		if(peca[i].status == jogador)                     //caracter que vem do controller, respectivamente das funcoes iniciar e jogar.
+		if(peca[i].status == jogadorrr)                     //caracter que vem do controller, respectivamente das funcoes iniciar e jogar.
 		{
 			printf(" %d.[%d|%d]   ", a, peca[i].lado1, peca[i].lado2);
 			a++;
@@ -78,10 +80,10 @@ char menu_jogada()
 	return op;
 }
 
-int escolher_peca(char jogador)
+int escolher_peca(char jogador7)
 {
 	int es;
-	printf("Jogador %c: Escolha a peca para jogar: ", jogador);
+	printf("Jogador %c: Escolha a peca para jogar: ", jogador7);
     scanf("%d", &es);
 	return es;
 }
@@ -103,9 +105,9 @@ void flush_in() //ou void fclear()
 	while( (ch = fgetc(stdin)) != EOF && ch != '\n');
 }
 
-void print_bateu(char jogador)
+void print_bateu(char jogador6)
 {
-	printf("\n===Resultado da partida===\n\nO Jogador %c jogou sua ultima peca na mesa e o monte esta' vazio!\n\n===Jogador %c bateu!===\n", jogador, jogador);
+	printf("\n===Resultado da partida===\n\nO Jogador %c jogou sua ultima peca na mesa e o monte esta' vazio!\n\n===Jogador %c bateu!===\n", jogador6, jogador6);
 }
 
 void print_qtd_pecas(int qtd_pecas1, int qtd_pecas2)

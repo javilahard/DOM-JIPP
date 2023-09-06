@@ -7,16 +7,16 @@ Priscilla de Souza Jardim
 */
 
 int menu();
-void apresenta_peca(char jogador);
+void apresenta_peca(char jogadorrr);
 void apresenta_mensagem(char m[500]);
 void mostra_mesa();
 char menu_jogada();
-int escolher_peca(char jogador);
+int escolher_peca(char jogador7);
 char escolher_lado();
 void flush_in();
-void venc_batida(char jogador);
+void venc_batida(char jogador5);
 int  resp;
-void print_bateu(char jogador);
+void print_bateu(char jogador6);
 void print_qtd_pecas(int qtd_pecas1, int qtd_pecas2);
 void print_pontos(int pontos1, int pontos2);
 

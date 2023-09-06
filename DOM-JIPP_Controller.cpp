@@ -43,13 +43,15 @@ void embaralha(tipo_peca peca[28])	               //embaralhamento das pecas do 
 
 void inicia()
 {
+	
 	do
 	{
-	    resp = menu();
+		resp = menu();
 		
 	    if(resp==1)
 	       inicia_jogo();
-	    else if(resp==2)
+		
+		else if(resp==2)
 	    {
 	       apresenta_mensagem("===REGRAS DO DOMINO JIPP===\n\nRegra1: Cada jogador comeca com 7 pecas aleatorias, podendo comprar quantas pecas quiser no seu turno.\n");
 		   apresenta_mensagem("Regra2: O jogo inicia com o jogador que tiver a peca [6|6]. Caso ninguem tenha a [6|6] entao calcula-se outra primeira peca que e' jogada e o primeiro turno sera do jogador que nao tinha a primeira peca.\n");
@@ -60,9 +62,12 @@ void inicia()
 	       system("pause");
 	       system("cls");
 		}
-	
+		else if(resp==3)
+		   gravaCadastro();
+		else if(resp==4)
+		   recuperaCadastro();
 	}
-	while(resp != 3);
+	while(resp != 5);
 }
 
 
@@ -97,16 +102,16 @@ void inicia_jogo()
 	if(peca[pi].status == '1')
 	{
 		apresenta_mensagem("O primeiro lance foi do jogador 1\n");
-		vez = '2';                       //indica de qual jogador e' o proximo lance
+		jogador = '2';                       //indica de qual jogador e' o proximo lance
 	}
 	else
 	{
 		apresenta_mensagem("O primeiro lance foi do jogador 2\n");
-		vez = '1';
+		jogador = '1';
 	}
 	
 	peca[pi].status = 'M';	//atribui status mesa para a primeira peca depois de descoberta
-	jogar(vez);
+	jogar(jogador);
 }
 
 int peca_inicial()
@@ -156,7 +161,7 @@ int peca_inicial()
 	return prim;
 }
 
-void jogar(char jogador)
+void jogar(char jogadorr)
 {
 	
 	
@@ -173,13 +178,14 @@ void jogar(char jogador)
 	do
 	{
 		int escolha, b = 0, i = 0;
-		                 
-		venc_batida(jogador);                /*funcao de batida precisa estar no comeco para o caso de um jogador jogar sua ultima peca e o deposito ainda nao esta vazio, 
-		                                       entao quando a vez for dele novamente e o deposito estiver vazio ele conseguir bater*/
+		
+		jogador=jogadorr;
+		venc_batida(jogadorr);              /*funcao de batida precisa estar no comeco para o caso de um jogador jogar sua ultima peca e o deposito ainda nao esta vazio, 
+		                                    entao quando a vez for dele novamente e o deposito estiver vazio ele conseguir bater*/
 		if(p==0)                         //se alguem bater sai do jogo imediatamente e mostra o menu de opcoes da partida.
 		   break;
 		mostra_mesa();
-		apresenta_peca(jogador);
+		apresenta_peca(jogadorr);
 		op = menu_jogada();
 		
 		switch (op)
@@ -188,12 +194,12 @@ void jogar(char jogador)
 		    break;
 		case 'C':
 		{
-		    comprar(jogador);
+		    comprar(jogadorr);
 	        continue;
 	    }
 	    case 'P':
 	    {
-	    	if(passar(jogador) == TRUE)
+	    	if(passar(jogadorr) == TRUE)
 	    	{
 			   if(jogador == '1')
 			      jogador = '2';
@@ -245,10 +251,10 @@ void jogar(char jogador)
 		}
 	    case 'J':
 	    {
-		    escolha = escolher_peca(jogador);
+		    escolha = escolher_peca(jogadorr);
 			while((b != escolha) && (i < 28))             //verifica qual a peca escolhida a partir de sua indexacao no array de pecas e seu status
 			{
-				if(peca[i].status == jogador)
+				if(peca[i].status == jogadorr)
 				{
 				   b++;
 				}
@@ -300,7 +306,7 @@ void jogar(char jogador)
 			        system("cls");  
 			   }
 			   
-			   venc_batida(jogador);                 //depois de verificar que a peca pode ser jogada.
+			   venc_batida(jogadorr);                 //depois de verificar que a peca pode ser jogada.
 			   
 		   }
 			
@@ -315,30 +321,32 @@ void jogar(char jogador)
 			}
 			break;
 	   }
-	
-	    
-		default:
-	    {
+	   
+	   default:
+	   {
 			system("cls");
 	    	apresenta_mensagem("Opcao Invalida!\n");
 			system("pause");
 			system("cls");
 			continue;
-		}
+	   }
 		
 	   }
 		
-		if(jogador=='1')      //mudar o jogador para o da proxima rodada
-		   	jogador='2';
-		else
-		   	jogador='1';
+		
+	   if(jogadorr=='1')      //mudar o jogador para o da proxima rodada
+		    jogadorr='2';
+	   else
+		   	jogadorr='1';
+		   
+	    
     
 	}
 	while(qtd_passar != 2 && p!= 0 && op!= 'S');
 	
 }
 
-void comprar(char jogador)
+void comprar(char jogador_)
 {
 
    int i = 14;          //as 14 primeiras pecas ja nao estao mais livres
@@ -346,7 +354,7 @@ void comprar(char jogador)
    {
        if (peca[i].status == '0')
         {
-        peca[i].status = jogador;
+        peca[i].status = jogador_;
         break;
         }
         i++;
@@ -360,7 +368,7 @@ void comprar(char jogador)
     system("cls");
 }
 
-booleano passar(char jogador)
+booleano passar(char jogador4)
 {
   
   system("cls");
@@ -375,7 +383,7 @@ booleano passar(char jogador)
   {
     for(int j=0; j<28; j++)                       //percorre todas as pecas e verifica as pecas que tem status do jogador do momento e se existe alguma que pode ser jogada.
    {
-  		if(peca[j].status == jogador)
+  		if(peca[j].status == jogador4)
   		{
   		    if((mesaD == peca[j].lado1) || (mesaD == peca[j].lado2) || (mesaE == peca[j].lado1) || (mesaE == peca[j].lado2))
 			    {
@@ -447,7 +455,7 @@ void carregaMesaD(int i)
 	peca[i].status = 'M'; 
 }
 
-void venc_batida(char jogador)
+void venc_batida(char jogador5)
 {
 	if(depositoVazio() == TRUE)
 	{
@@ -457,7 +465,7 @@ void venc_batida(char jogador)
                
 	   while(k<28)
 	   {
-          if(peca[k].status == jogador)
+          if(peca[k].status == jogador5)
 			 p++;                    
 		  k++;
 	   }
@@ -465,14 +473,147 @@ void venc_batida(char jogador)
 	   if(p == 0)                   //se o jogador em questao tiver nenhuma peca na mao depois de verificado que ela pode ser jogada e o deposito esta vazio o jogador bate.
 	   {
 	   	   mostra_mesa();
-		   apresenta_peca(jogador);
-	   	   print_bateu(jogador);
+		   apresenta_peca(jogador5);
+	   	   print_bateu(jogador5);
 	       system("pause");
 	       system("cls");
 	   }
     }
     
 }
+
+void gravaCadastro()
+{
+
+	if(p == 0 || qtd_passar == 2)
+	{
+		apresenta_mensagem("Jogo terminado nao pode ser gravado");
+		system("pause");
+		return;
+	}
+	
+	int i;
+    FILE *fp;
+    FILE *fpm;
+    FILE *fps;
+    
+     //dados do Jogo a ser salvo
+   sitJogo.qtmesaJogo = qtmesa;
+   sitJogo.jogadorJogo = jogador;
+   sitJogo.mesaDJogo = mesaD;
+   sitJogo.mesaEJogo = mesaE;
+   
+   if((fp = fopen("CAD_DOMINO", "w")) == NULL)
+   {
+        apresenta_mensagem("O arquivo CAD_DOMINO nao pode ser aberto para cadastrar");
+        system("pause");
+        return;
+   }
+   if((fpm = fopen("CAD_MESA", "w")) == NULL)
+   {
+        apresenta_mensagem("O arquivo CAD_MESA nao pode ser aberto para cadastrar");
+        system("pause");
+        return;
+   }
+   if((fps = fopen("CAD_JOGO", "w")) == NULL)
+   {
+        apresenta_mensagem("O arquivo CAD_JOGO nao pode ser aberto para cadastrar");
+        system("pause");
+        return;
+   }
+   
+   if(fwrite(&sitJogo, sizeof(struct Jogo), 1, fps) != 1)
+        apresenta_mensagem("Erro na gravacao do arquivo CAD_JOGO");
+       
+   for(i = 0; i < 28; i++)
+   {
+       if(fwrite(&peca[i], sizeof(struct Peca), 1, fp) != 1)
+       {
+          apresenta_mensagem("Erro na gravacao do arquivo CAD_DOMINO");
+          break;
+       }
+   }   
+   
+   for(i = 0; i < sitJogo.qtmesaJogo; i++)
+   {
+       if(fwrite(&mesa[i], sizeof(struct Mesa), 1, fpm) != 1)
+       {
+	      apresenta_mensagem("Erro na gravacao do arquivo CAD_MESA");
+	      break;
+       }
+   }
+   
+   fclose(fps);
+   fclose(fpm);
+   fclose(fp);
+   apresenta_mensagem("Gravados os arquivos CAD_DOMINO, CAD_MESA e CAD_JOGO");
+   system("pause");
+}
+
+void recuperaCadastro()
+{
+   int i;
+   FILE *fp;
+   FILE *fpm;
+   FILE *fps;
+ 
+   if((fp = fopen("CAD_DOMINO", "r")) == NULL)
+   {
+      apresenta_mensagem("O arquivo CAD_DOMINO nao pode ser aberto");
+      system("pause");
+      return;
+   }
+   if((fpm = fopen("CAD_MESA", "r")) == NULL)
+   {
+       apresenta_mensagem("O arquivo CAD_MESA nao pode ser aberto");
+       system("pause");
+       return;
+   }
+   if((fps = fopen("CAD_JOGO", "r")) == NULL)
+   {
+       apresenta_mensagem("O arquivo CAD_JOGO nao pode ser aberto");
+       system("pause");
+       return;
+   }
+   
+   if(fread(&sitJogo, sizeof(struct Jogo), 1, fps) != 1)
+        apresenta_mensagem("Erro na leitura do arquivo CAD_JOGO");
+   
+   for(i = 0; i < 28; i++)
+   {
+      if (fread(&peca[i], sizeof(struct Peca), 1, fp) != 1)
+      {
+          apresenta_mensagem("Erro na leitura do arquivo CAD_DOMINO");
+          break;
+      }
+   }
+   
+   for(i = 0; i < sitJogo.qtmesaJogo; i++)
+   {
+       if (fread(&mesa[i], sizeof(struct Mesa), 1, fpm) != 1)
+       {
+           apresenta_mensagem("Erro na leitura do arquivo CAD_MESA");
+           break;
+       }
+   }
+   
+
+   fclose(fps);
+   fclose(fpm);
+   fclose(fp);
+   //recupera dados do Jogo salvo
+   qtmesa = sitJogo.qtmesaJogo;
+   jogador = sitJogo.jogadorJogo;
+   mesaD = sitJogo.mesaDJogo;
+   mesaE = sitJogo.mesaEJogo;
+   apresenta_mensagem("retornando ao jogo recuperado");
+   system("pause");
+   jogar(jogador);
+   
+ 
+}
+ 
+
 
 
 

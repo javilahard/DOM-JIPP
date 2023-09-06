@@ -12,13 +12,15 @@ void embaralha(tipo_peca peca[28]);
 void inicia();
 void inicia_jogo();
 int peca_inicial();
-void jogar(char jogador);
+void jogar(char jogadorr);
 void mostra_mesa();
-void comprar(char jogador);
-booleano passar(char jogador);
+void comprar(char jogador_);
+booleano passar(char jogador4);
 booleano depositoVazio();
 void carregaMesaE(int i);
 void carregaMesaD(int i);
+void gravaCadastro();
+void recuperaCadastro();
 
 
 

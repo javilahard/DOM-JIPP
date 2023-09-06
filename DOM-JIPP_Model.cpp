@@ -22,6 +22,15 @@ struct Mesa
 		int ladoE;
 		int ladoD;
 	} mesa[28];
+	
+struct Jogo
+{
+ int qtmesaJogo; //qtd.de peÃ§as na mesa
+ int jogadorJogo; //jogador atual
+ int mesaDJogo; //extremidade direita da mesa
+ int mesaEJogo; //extremidade esquerda da mesa
+
+} sitJogo; //situação do jogo
 
 tipo_peca peca[28];
 tipo_peca aux;
