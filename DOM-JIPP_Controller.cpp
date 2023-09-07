@@ -487,7 +487,7 @@ void gravaCadastro()
 
 	if(p == 0 || qtd_passar == 2)
 	{
-		apresenta_mensagem("Jogo terminado nao pode ser gravado");
+		apresenta_mensagem("Jogo terminado nao pode ser gravado ou entao nenhum jogo foi iniciado");
 		system("pause");
 		return;
 	}
@@ -602,6 +602,7 @@ void recuperaCadastro()
    fclose(fps);
    fclose(fpm);
    fclose(fp);
+
    //recupera dados do Jogo salvo
    qtmesa = sitJogo.qtmesaJogo;
    jogador = sitJogo.jogadorJogo;
@@ -609,11 +610,30 @@ void recuperaCadastro()
    mesaE = sitJogo.mesaEJogo;
    qtd_passar = sitJogo.qtd_passarJogo;
    
+    srand(time(NULL));
+    int k, e;
+    k=0;
+    
+	while(k<28)
+	{
+		if(peca[k].status=='0')                    //embaralhar o deposito para quando recuperar um jogo as mesmas pecas nao serem compradas, assim posibilitando resultados diferentes para o mesmo jogo salvo.
+		{
+		   do
+		   {
+		 	  e = rand()%28;
+		
+		   }while(peca[e].status!='0');
+		
+		   aux2 = peca[k];
+		   peca[k] = peca[e];
+		   peca[e] = aux2;
+	    }
+	    k++;
+	}
+   
    apresenta_mensagem("retornando ao jogo recuperado");
    system("pause");
    jogar(jogador);
-   
- 
 }
  
 
