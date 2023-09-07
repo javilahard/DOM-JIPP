@@ -201,10 +201,10 @@ void jogar(char jogadorr)
 	    {
 	    	if(passar(jogadorr) == TRUE)
 	    	{
-			   if(jogador == '1')
-			      jogador = '2';
+			   if(jogadorr == '1')
+			      jogadorr = '2';
                else
-                  jogador = '1';
+                  jogadorr = '1';
 		    }
 	    	
 			if(qtd_passar==2)                              // se os 2 jogadores passarem a vez o jogo acabou
