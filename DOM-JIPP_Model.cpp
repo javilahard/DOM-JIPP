@@ -34,7 +34,7 @@ struct Jogo
 
 tipo_peca peca[28];
 tipo_peca aux;
-tipo_peca aux2;
+
 
 	
 
