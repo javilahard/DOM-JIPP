@@ -1,4 +1,4 @@
-/*DOM-JIPP_Controller.cpp - Etapa 5
+/*DOM-JIPP_Controller.cpp 
 14/09/2023
 Igor Costa
 Joao Avila Harduin
@@ -43,15 +43,19 @@ void embaralha(tipo_peca peca[28])	               //embaralhamento das pecas do 
 
 void inicia()
 {
+	sent=1;
 	
 	do
 	{
 		resp = menu();
 		
-	    if(resp==1)
-	       inicia_jogo();
-		
-		else if(resp==2)
+	    if(resp==1 || resp==2)
+	    {
+	       if(resp==2)
+		      sent=2;
+		   inicia_jogo();
+		}
+		else if(resp==3)
 	    {
 	       apresenta_mensagem("===REGRAS DO DOMINO JIPP===\n\nRegra1: Cada jogador comeca com 7 pecas aleatorias, podendo comprar quantas pecas quiser no seu turno.\n");
 		   apresenta_mensagem("Regra2: O jogo inicia com o jogador que tiver a peca [6|6]. Caso ninguem tenha a [6|6] entao calcula-se outra primeira peca que e' jogada e o primeiro turno sera do jogador que nao tinha a primeira peca.\n");
@@ -62,12 +66,12 @@ void inicia()
 	       system("pause");
 	       system("cls");
 		}
-		else if(resp==3)
-		   gravaCadastro();
 		else if(resp==4)
+		   gravaCadastro();
+		else if(resp==5)
 		   recuperaCadastro();
 	}
-	while(resp != 5);
+	while(resp != 6);
 }
 
 
@@ -166,9 +170,10 @@ void jogar(char jogadorr)
 	
 	
 	char op, lado;
-	int soma_lados1, soma_lados2, qtdpecas1, qtdpecas2;
+	int soma_lados1, soma_lados2, qtdpecas1, qtdpecas2, escolha;
+	int k, j, i, b;
 	
-	qtd_passar = 0;
+	
 	soma_lados1 = 0;                  //soma dos lados de todas as pecas pertencentes a cada jogador quando os 2 passarem a vez
 	soma_lados2 = 0;
 	qtdpecas1 = 0;                  //quantida de pecas de determinado jogador quando os 2 passarem a vez
@@ -177,16 +182,40 @@ void jogar(char jogadorr)
 	
 	do
 	{
-		int escolha, b = 0, i = 0;
-		
 		jogador=jogadorr;
 		venc_batida(jogadorr);              /*funcao de batida precisa estar no comeco para o caso de um jogador jogar sua ultima peca e o deposito ainda nao esta vazio, 
 		                                    entao quando a vez for dele novamente e o deposito estiver vazio ele conseguir bater*/
 		if(p==0)                         //se alguem bater sai do jogo imediatamente e mostra o menu de opcoes da partida.
 		   break;
 		mostra_mesa();
+		if(sent==2 && jogadorr=='2')
+		     system("pause");
 		apresenta_peca(jogadorr);
-		op = menu_jogada();
+		
+		if(sent==2 && jogadorr=='2')
+	    {
+	    	for(k=0; k<28; k++)
+			{
+			   if(peca[k].status=='2')
+			   {
+			   	    if((mesaD == peca[k].lado1) || (mesaD == peca[k].lado2) || (mesaE == peca[k].lado1) || (mesaE == peca[k].lado2))
+			   	    {
+					    op = 'J'; 
+					    break;
+				    }
+			   }
+		    }
+		    if(k==28)
+		    {
+		       if(depositoVazio() == TRUE)
+		            op = 'P';
+		       else
+		            op = 'C';
+			}
+		}
+		else
+		    op = menu_jogada();
+		
 		
 		switch (op)
 	   {
@@ -210,7 +239,7 @@ void jogar(char jogadorr)
 			if(qtd_passar==2)                              // se os 2 jogadores passarem a vez o jogo acabou
 			{
 				apresenta_mensagem("Os dois jogadores passaram a vez em seguida!\n===Resultado da partida===\n\n");
-				for(int j=0; j<28; j++)                //percorre todas as pecas e verifica as pecas que tem status jogador
+				for(j=0; j<28; j++)                //percorre todas as pecas e verifica as pecas que tem status jogador
 	    	   {
 	    	   	    if(peca[j].status=='1' || peca[j].status=='2')
 	    	   	    {
@@ -251,16 +280,39 @@ void jogar(char jogadorr)
 		}
 	    case 'J':
 	    {
-		    escolha = escolher_peca(jogadorr);
-			while((b != escolha) && (i < 28))             //verifica qual a peca escolhida a partir de sua indexacao no array de pecas e seu status
+	    	if(sent==2 && jogadorr=='2')
+	    	{
+	    		qtd_passar = 0;
+	    	    if((mesaD == peca[k].lado1) || (mesaD == peca[k].lado2))                      // se nao precisar escolher o lado verifica em qual lado a peca sera jogada automaticamente apos a escolha
+			    {
+					carregaMesaD(k);
+				}                 
+			    else
+			    {
+			        carregaMesaE(k);
+			    }
+			    
+			    system("cls");  
+			    print_jogadacomp(peca[k].lado1, peca[k].lado2);
+			    system("pause");
+			    system("cls");
+			    venc_batida(jogadorr);
+		    }
+			    
+		    else
 			{
-				if(peca[i].status == jogadorr)
-				{
-				   b++;
-				}
-				i++;
-			}
-			i--;
+			    escolha = escolher_peca(jogadorr);
+			    i=0;
+			    b=0;
+			    while((b != escolha) && (i < 28))             //verifica qual a peca escolhida a partir de sua indexacao no array de pecas e seu status
+			    {
+				    if(peca[i].status == jogadorr)
+				    {
+				       b++;
+				    }
+				    i++;
+			    }
+			    i--;
 			
 			if((b != escolha) && (i == 27))
 			{
@@ -319,6 +371,7 @@ void jogar(char jogadorr)
 			    system("cls");
 			    continue;
 			}
+		   }
 			break;
 	   }
 	   
@@ -348,7 +401,7 @@ void jogar(char jogadorr)
 
 void comprar(char jogador_)
 {
-
+   system("cls");
    int i = 14;          //as 14 primeiras pecas ja nao estao mais livres
    while(i < 28)
    {
@@ -361,44 +414,56 @@ void comprar(char jogador_)
    }
    if (i >= 28)
        {
-       system("cls");
-	   apresenta_mensagem("Nada a comprar\n");
+       apresenta_mensagem("Nada a comprar\n");
        system("pause");
        }
-    system("cls");
+    if(sent==2 && jogador_=='2')
+    {
+	   apresenta_mensagem("O jogador 2 comprou!\n");
+	   system("pause");
+    }
+	system("cls");
 }
 
 booleano passar(char jogador4)
 {
-  
   system("cls");
-  if (depositoVazio() == FALSE)
+  if(sent==2 && jogador4=='2')
   {
-    apresenta_mensagem("Passagem bloqueada. O deposito nao esta vazio. Voce deve jogar e/ou comprar");
-    system("pause");
-    system("cls");
-    return FALSE;
+  	 apresenta_mensagem("O jogador 2 passou a vez\n");
+  	 system("pause");
+  	 system("cls");
+	 qtd_passar++;
+     return TRUE;  	
   }
   else
   {
-    for(int j=0; j<28; j++)                       //percorre todas as pecas e verifica as pecas que tem status do jogador do momento e se existe alguma que pode ser jogada.
-   {
-  		if(peca[j].status == jogador4)
-  		{
-  		    if((mesaD == peca[j].lado1) || (mesaD == peca[j].lado2) || (mesaE == peca[j].lado1) || (mesaE == peca[j].lado2))
-			    {
-			      system("cls");
-			      apresenta_mensagem("Passagem bloqueada. Faca sua jogada!\n");
-			      system("pause");
-			      system("cls");
-			      return FALSE;                     //dessa forma qtd_passar so' sera igual a 2 quando um jogador passar em seguida do outro
-				}
-	    }
-    }
-	system("cls");
-	qtd_passar++;
-    return TRUE;
-  }
+      if (depositoVazio() == FALSE)
+      {
+          apresenta_mensagem("Passagem bloqueada. O deposito nao esta vazio. Voce deve jogar e/ou comprar");
+          system("pause");
+          system("cls");
+          return FALSE;
+      }
+      else
+      {
+          for(int j=0; j<28; j++)                       //percorre todas as pecas e verifica as pecas que tem status do jogador do momento e se existe alguma que pode ser jogada.
+          {
+  		      if(peca[j].status == jogador4)
+  		      {
+  		          if((mesaD == peca[j].lado1) || (mesaD == peca[j].lado2) || (mesaE == peca[j].lado1) || (mesaE == peca[j].lado2))
+			      {
+			           apresenta_mensagem("Passagem bloqueada. Faca sua jogada!\n");
+			           system("pause");
+			           system("cls");
+			           return FALSE;                     //dessa forma qtd_passar so' sera igual a 2 quando um jogador passar em seguida do outro
+				  }
+	          }
+          }
+	      qtd_passar++;
+          return TRUE;
+      }
+   }
 			
 }
 //verifica se o deposito esta vazio
@@ -503,6 +568,7 @@ void gravaCadastro()
    sitJogo.mesaDJogo = mesaD;
    sitJogo.mesaEJogo = mesaE;
    sitJogo.qtd_passarJogo = qtd_passar;
+   sitJogo.sent_Jogo = sent;
    
    if((fp = fopen("CAD_DOMINO", "w")) == NULL)
    {
@@ -609,6 +675,7 @@ void recuperaCadastro()
    mesaD = sitJogo.mesaDJogo;
    mesaE = sitJogo.mesaEJogo;
    qtd_passar = sitJogo.qtd_passarJogo;
+   sent = sitJogo.sent_Jogo;
    
    apresenta_mensagem("retornando ao jogo recuperado");
    system("pause");

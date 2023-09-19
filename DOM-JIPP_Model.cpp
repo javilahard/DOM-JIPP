@@ -1,4 +1,4 @@
-/*DOM-JIPP_Model.cpp - Etapa 5
+/*DOM-JIPP_Model.cpp 
 14/09/2023
 Igor Costa
 Joao Avila Harduin
@@ -30,6 +30,7 @@ struct Jogo
  int mesaDJogo; //extremidade direita da mesa
  int mesaEJogo; //extremidade esquerda da mesa
  int qtd_passarJogo;
+ int sent_Jogo;  //opcao do menu principal
 } sitJogo; //situação do jogo
 
 tipo_peca peca[28];

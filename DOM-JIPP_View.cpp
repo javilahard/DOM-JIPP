@@ -1,4 +1,4 @@
-/*DOM-JIPP_View.cpp - Etapa 5
+/*DOM-JIPP_View.cpp 
 14/09/2023
 Igor Costa
 Joao Avila Harduin
@@ -15,15 +15,23 @@ int menu()
 { 
     system("cls");
     printf("===== DOMINO JIPP =====\n\n");
-	printf("1.Iniciar o jogo\n");
-	printf("2.Regras gerais do jogo\n");
-	printf("3.Gravar partida\n");
-	printf("4.Recuperar partida gravada\n");
-    printf("5.Sair\n\n");
+	printf("1.Iniciar o jogo(2 jogadores)\n");
+	printf("2.Iniciar o jogo(contra o computador)\n");
+	printf("3.Regras gerais do jogo\n");
+	printf("4.Gravar partida\n");
+	printf("5.Recuperar partida gravada\n");
+    printf("6.Sair\n\n");
     printf("Opcao: ");
     scanf("%d", &resp);
     system("cls");
-	if(resp!=1 && resp!=2 && resp!=3 && resp!=4 && resp!=5)
+    
+    if(resp==2)
+	{
+	    printf("\n\nO jogador 2 e' o computador.\n\n");
+	    system("pause");
+	    system("cls");
+    }
+	else if(resp!=1 && resp!=3 && resp!=4 && resp!=5 && resp!=6)
 		{
 		printf("Opcao invalida!\n");
 		system("pause");
@@ -78,6 +86,7 @@ char menu_jogada()
 	scanf(" %c", &op);
 	op = toupper(op);
 	return op;
+    
 }
 
 int escolher_peca(char jogador7)
@@ -119,6 +128,11 @@ void print_qtd_pecas(int qtd_pecas1, int qtd_pecas2)
 void print_pontos(int pontos1, int pontos2)
 {
 	printf("\n Pontos Jogador 1: %d\n\n Pontos Jogador 2: %d\n", pontos1, pontos2);
+}
+
+void print_jogadacomp(int lado_1, int lado_2)
+{
+	printf("\n\nO jogador 2 jogou a peca [%d|%d].\n\n", lado_1, lado_2);
 }
 
 

@@ -1,4 +1,4 @@
-/*DOM-JIPP_Model.h - Etapa 5
+/*DOM-JIPP_Model.h 
 14/09/2023
 Igor Costa
 Joao Avila Harduin
@@ -15,5 +15,7 @@ int mesaE, mesaD;    //extremidades da mesa.
 int qtmesa;       
 char jogador;   
 int p;                   //qtd de pecas na mao do jogador, variavel usada na funcao de bater.
+int resp;
+int sent;             //sentinela para caso o jogador 2 seja o computador.
 
 
