@@ -31,13 +31,6 @@ int menu()
 	    system("pause");
 	    system("cls");
     }
-	else if(resp!=1 && resp!=3 && resp!=4 && resp!=5 && resp!=6)
-		{
-		printf("Opcao invalida!\n");
-		system("pause");
-	    system("cls");
-		return resp;
-	    }
 	return resp;
 }
 
@@ -93,7 +86,7 @@ int escolher_peca(char jogador7)
 {
 	int es;
 	printf("Jogador %c: Escolha a peca para jogar: ", jogador7);
-    scanf("%d", &es);
+	scanf("%d", &es);
 	return es;
 }
 
@@ -116,23 +109,38 @@ void flush_in() //ou void fclear()
 
 void print_bateu(char jogador6)
 {
-	printf("\n===Resultado da partida===\n\nO Jogador %c jogou sua ultima peca na mesa e o monte esta' vazio!\n\n===Jogador %c bateu!===\n", jogador6, jogador6);
+	if(sent==2 && jogador=='2')
+	{
+		printf("\n===Resultado da partida===\n\nO Computador jogou sua ultima peca na mesa e o monte esta' vazio!\n\n===O Computador bateu!===\n");
+	}
+	else
+	    printf("\n===Resultado da partida===\n\nO Jogador %c jogou sua ultima peca na mesa e o monte esta' vazio!\n\n===Jogador %c bateu!===\n", jogador6, jogador6);
 }
 
 void print_qtd_pecas(int qtd_pecas1, int qtd_pecas2)
 {
-	printf(" Qtd de pecas Jogador 1: %d\n\n Qtd de pecas Jogador 2: %d\n", qtd_pecas1, qtd_pecas2);
+	if(sent==2 && jogador=='2')
+	{
+	   printf(" Qtd de pecas Jogador 1: %d\n\n Qtd de pecas Computador: %d\n", qtd_pecas1, qtd_pecas2);
+    }
+    else
+       printf(" Qtd de pecas Jogador 1: %d\n\n Qtd de pecas Jogador 2: %d\n", qtd_pecas1, qtd_pecas2);
 }
 
 
 void print_pontos(int pontos1, int pontos2)
 {
-	printf("\n Pontos Jogador 1: %d\n\n Pontos Jogador 2: %d\n", pontos1, pontos2);
+	if(sent==2 && jogador=='2')
+	{
+	   printf("\n Pontos Jogador 1: %d\n\n Pontos Computador: %d\n", pontos1, pontos2);
+    }
+    else
+       printf("\n Pontos Jogador 1: %d\n\n Pontos Jogador 2: %d\n", pontos1, pontos2);
 }
 
 void print_jogadacomp(int lado_1, int lado_2)
 {
-	printf("\n\nO jogador 2 jogou a peca [%d|%d].\n\n", lado_1, lado_2);
+	printf("\n\nO computador jogou a peca [%d|%d].\n\n", lado_1, lado_2);
 }
 
 
