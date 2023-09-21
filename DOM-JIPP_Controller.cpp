@@ -43,8 +43,7 @@ void embaralha(tipo_peca peca[28])	               //embaralhamento das pecas do 
 
 void inicia()
 {
-	sent=1;                  //e' util incializar essas variaveis globais aqui por conta de algumas situacoes.
-	qtmesa=0;
+	qtmesa=0;               //e' util incializar essas variaveis globais aqui por conta de algumas situacoes.
 	qtd_passar=0;
 	p=1;
 	do
@@ -58,6 +57,7 @@ void inicia()
 		}
 	    if(resp==1 || resp==2)
 	    {
+	       sent=1;
 	       qtd_passar=0;
 	      
 		   if(resp==2)
@@ -305,13 +305,10 @@ void jogar(char jogadorr)
 	    	{
 	    		qtd_passar = 0;
 	    	    if((mesaD == peca[k].lado1) || (mesaD == peca[k].lado2))                      // se nao precisar escolher o lado verifica em qual lado a peca sera jogada automaticamente apos a escolha
-			    {
-					carregaMesaD(k);
-				}                 
+			        carregaMesaD(k);
+				                 
 			    else
-			    {
 			        carregaMesaE(k);
-			    }
 			    
 			    system("cls");  
 			    print_jogadacomp(peca[k].lado1, peca[k].lado2);
@@ -341,14 +338,12 @@ void jogar(char jogadorr)
 			    while((b != escolha) && (i < 28))             //verifica qual a peca escolhida a partir de sua indexacao no array de pecas e seu status
 			    {
 				    if(peca[i].status == jogadorr)
-				    {
-				       b++;
-				    }
+				        b++;
 				    i++;
 			    }
 			    i--;
 			
-			    if((b != escolha) && (i == 27))
+			    if(b != escolha && i == 27)
 			    {
 				   system("cls");
 				   apresenta_mensagem("\n\nPeca invalida! Voce nao possui essa peca. Tente novamente \n");        //caso o usuario digite uma peca diferente de suas opcoes na mao
@@ -564,7 +559,10 @@ void venc_batida(char jogador5)
 	   while(k<28)
 	   {
           if(peca[k].status == jogador5)
-			 p++;                    
+		  {
+			   p++;
+			   break;
+	      }
 		  k++;
 	   }
 	   
