@@ -25,13 +25,13 @@ struct Mesa
 	
 struct Jogo
 {
- int qtmesaJogo; //qtd.de peÃ§as na mesa
+ int qtmesaJogo; //qtd.de pecas na mesa
  int jogadorJogo; //jogador atual
  int mesaDJogo; //extremidade direita da mesa
  int mesaEJogo; //extremidade esquerda da mesa
- int qtd_passarJogo;
+ int qtd_passarJogo; //qtd_passar atual
  int sent_Jogo;  //opcao do menu principal
-} sitJogo; //situação do jogo
+} sitJogo; //situacao do jogo
 
 tipo_peca peca[28];
 tipo_peca aux;

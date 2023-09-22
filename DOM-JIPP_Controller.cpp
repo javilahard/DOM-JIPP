@@ -26,21 +26,6 @@ void cria_peca(tipo_peca peca[28])	               //preenchimento de cada peca c
 	}
 }
 
-void embaralha(tipo_peca peca[28])	               //embaralhamento das pecas do jogo
-{
-	srand(time(NULL));
-	
-	for(int i = 0; i <= 27; i++)
-	{
-		int a = rand()%28;
-		
-		aux = peca[i];
-		peca[i] = peca[a];
-		peca[a] = aux;
-	}
-}
-
-
 void inicia()
 {
 	qtmesa=0;               //e' util incializar essas variaveis globais aqui por conta de algumas situacoes.
@@ -127,6 +112,20 @@ void inicia_jogo()
 	jogar(jogador);
 }
 
+void embaralha(tipo_peca peca[28])	               //embaralhamento das pecas do jogo
+{
+	srand(time(NULL));
+	
+	for(int i = 0; i <= 27; i++)
+	{
+		int a = rand()%28;
+		
+		aux = peca[i];
+		peca[i] = peca[a];
+		peca[a] = aux;
+	}
+}
+
 int peca_inicial()
 {
 	int prim = 100;
@@ -194,7 +193,7 @@ void jogar(char jogadorr)
 		jogador=jogadorr;
 		venc_batida(jogadorr);              /*funcao de batida precisa estar no comeco para o caso de um jogador jogar sua ultima peca e o deposito ainda nao esta vazio, 
 		                                    entao quando a vez for dele novamente e o deposito estiver vazio ele conseguir bater*/
-		if(p==0)                         //se alguem bater sai do jogo imediatamente e mostra o menu de opcoes.
+		if(p==0)                         //se alguem bater sai do jogo imediatamente e mostra o menu principal.
 		   break;
 		
 		mostra_mesa();
@@ -494,7 +493,7 @@ booleano passar(char jogador4)
    }
 			
 }
-//verifica se o deposito esta vazio
+
 booleano depositoVazio()
 {
   for(int i = 0; i < 28; i++)
