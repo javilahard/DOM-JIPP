@@ -28,7 +28,7 @@ void cria_peca(tipo_peca peca[28])	               //preenchimento de cada peca c
 
 void inicia()
 {
-	qtmesa=0;               //e' util incializar essas variaveis globais aqui por conta de algumas situacoes.
+	qtmesa=0;                                //e' preciso inicializar as variaveis globais por conta de situacoes apos finalizar um jogo ou reperar/gravar.
 	qtd_passar=0;
 	p=1;
 	do
@@ -100,7 +100,7 @@ void inicia_jogo()
 	if(peca[pi].status == '1')
 	{
 		apresenta_mensagem("O primeiro lance foi do jogador 1\n");
-		jogador = '2';                       //indica de qual jogador e' o proximo lance
+		jogador = '2';                                  //indica de qual jogador e' o proximo lance
 	}
 	else
 	{
@@ -108,7 +108,7 @@ void inicia_jogo()
 		jogador = '1';
 	}
 	
-	peca[pi].status = 'M';	//atribui status mesa para a primeira peca depois de descoberta
+	peca[pi].status = 'M';	                         //atribui status mesa para a primeira peca depois de descoberta
 	jogar(jogador);
 }
 
@@ -139,9 +139,7 @@ int peca_inicial()
 			else
 			{
 				if(peca[i].lado1 > peca[prim].lado1)
-				{
-					prim = i;
-				}	
+				    prim = i;
 			}
 		}
 	}
@@ -157,16 +155,14 @@ int peca_inicial()
 	for(int i = 1; i < 14; i++)
 	{
 		if(peca[i].lado1 + peca[i].lado2 > peca[prim].lado1 + peca[prim].lado2)
-		{
-			prim = i;
-		}
+		    prim = i;
+		
 		else if(peca[i].lado1 + peca[i].lado2 == peca[prim].lado1 + peca[prim].lado2)
 		{
 			if((peca[i].lado1 > peca[prim].lado1 && peca[i].lado1 > peca[prim].lado2) ||
 			   (peca[i].lado2 > peca[prim].lado1 && peca[i].lado2 > peca[prim].lado2))          //verifica qual a maior soma e se a maior tiver iguais qual a peca com maior lado
-			{
+			        
 					prim = i;
-			}
 		}
 	}
 	qtmesa = 1;
@@ -182,9 +178,9 @@ void jogar(char jogadorr)
 	int k, j, i, b, h;
 	
 	
-	soma_lados1 = 0;                  //soma dos lados de todas as pecas pertencentes a cada jogador quando os 2 passarem a vez
+	soma_lados1 = 0;                               //soma dos lados de todas as pecas pertencentes a cada jogador quando os 2 passarem a vez
 	soma_lados2 = 0;
-	qtdpecas1 = 0;                  //quantida de pecas de determinado jogador quando os 2 passarem a vez
+	qtdpecas1 = 0;                               //quantida de pecas de determinado jogador quando os 2 passarem a vez
 	qtdpecas2 = 0;
     p = 1;                
 	
@@ -228,199 +224,198 @@ void jogar(char jogadorr)
 		
 		
 		switch (op)
-	   {
-	    case 'S':
-		    break;
-		case 'C':
-		{
-		    comprar(jogadorr);
-	        continue;
-	    }
-	    case 'P':
 	    {
-	    	if(passar(jogadorr) == TRUE)
-	    	{
-			   if(jogadorr == '1')
-			      jogadorr = '2';
-               else
-                  jogadorr = '1';
-		    }
-	    	
-			if(qtd_passar==2)                              // se os 2 jogadores passarem a vez o jogo acabou
-			{
-				apresenta_mensagem("Os dois jogadores passaram a vez em seguida!\n===Resultado da partida===\n\n");
-				for(j=0; j<28; j++)                //percorre todas as pecas e verifica as pecas que tem status jogador
-	    	   {
-	    	   	    if(peca[j].status=='1' || peca[j].status=='2')
-	    	   	    {
-	    	   	    	if(peca[j].status=='1')
-	    	   	        {
-							qtdpecas1++;
-						    soma_lados1 = soma_lados1 + peca[j].lado1 + peca[j].lado2;
-					    }
-	    	   	    	else
-	    	   	        {
-							qtdpecas2++;
-							soma_lados2 = soma_lados2 + peca[j].lado1 + peca[j].lado2;
-					    }
-	    	   	    }
-	    		}
-	    	   print_qtd_pecas(qtdpecas1, qtdpecas2);
-			   
-			   if(qtdpecas1 < qtdpecas2)
-			        apresenta_mensagem("\n===Jogador 1 venceu!===\n"); 
-			   
-			   else if(qtdpecas1 > qtdpecas2)
-			    {
-					if(sent==2 && jogadorr=='2')
-					   apresenta_mensagem("\n=== O Computador venceu!===\n");
-					else
-					   apresenta_mensagem("\n===Jogador 2 venceu!===\n");
-			    }
-			   else
-			   {
-			   	    print_pontos(soma_lados1, soma_lados2);
-			   	    
-			   	    if(soma_lados1 < soma_lados2)
-					   apresenta_mensagem("\n===Jogador 1 venceu!===\n"); 
-					else if(soma_lados1 > soma_lados2)
-					{
-					   if(sent==2 && jogadorr=='2')
-					        apresenta_mensagem("\n=== O Computador venceu!===\n"); 
-					   else
-					        apresenta_mensagem("\n===Jogador 2 venceu!===\n");
-				    }
-			   }
-			   system("pause");
-			   system("cls");
-			   break;
-			}
-			continue;
-			
-		}
-	    case 'J':
-	    {
-	    	if(sent==2 && jogadorr=='2')
-	    	{
-	    		qtd_passar = 0;
-	    	    if((mesaD == peca[k].lado1) || (mesaD == peca[k].lado2))                      // se nao precisar escolher o lado verifica em qual lado a peca sera jogada automaticamente apos a escolha
-			        carregaMesaD(k);
-				                 
-			    else
-			        carregaMesaE(k);
-			    
-			    system("cls");  
-			    print_jogadacomp(peca[k].lado1, peca[k].lado2);
-			    system("pause");
-			    system("cls");
-			    venc_batida(jogadorr);
-		    }
-			    
-		    else
-			{
-				for(h=0; h<28; h++)
-				{
-					if(peca[h].status==jogadorr)
-					   break;
-				}
-				if(h==28)
-				{
-					system("cls");
-					apresenta_mensagem("\n\nVoce nao possui pecas para jogar, compre ou passe a vez.\n");
-					system("pause");
-					system("cls");
-					continue;
-				}
-			    escolha = escolher_peca(jogadorr);
-			    i=0;
-			    b=0;
-			    while((b != escolha) && (i < 28))             //verifica qual a peca escolhida a partir de sua indexacao no array de pecas e seu status
-			    {
-				    if(peca[i].status == jogadorr)
-				        b++;
-				    i++;
-			    }
-			    i--;
-			
-			    if(b != escolha && i == 27)
-			    {
-				   system("cls");
-				   apresenta_mensagem("\n\nPeca invalida! Voce nao possui essa peca. Tente novamente \n");        //caso o usuario digite uma peca diferente de suas opcoes na mao
-				   system("pause");
-			       system("cls");
-			       continue;
-		        }
-			
-		 	   if((mesaD == peca[i].lado1) || (mesaD == peca[i].lado2) || (mesaE == peca[i].lado1) || (mesaE == peca[i].lado2))                            // verifica se a peca escolhida e' possivel de ser jogada
-			   {
-				
-			  	   qtd_passar = 0;
-				
-				
-				   if((mesaE == mesaD) || (peca[i].lado1 == mesaE && peca[i].lado2 == mesaD) || (peca[i].lado1 == mesaD && peca[i].lado2 == mesaE))             //verifica a necessidade de deixar o usuario escolher o lado da mesa para jogar
-			       {
-			   	        lado = escolher_lado();                                                                                                                  
-			   	        if(lado == 'E')
-			   	            carregaMesaE(i);
-			   	  
-			   	        else if(lado == 'D')
-			   	            carregaMesaD(i);
-			   	  
-				       else
-				       {
-				            apresenta_mensagem("Opcao invalida! Tente novamente\n");                                    //consistencia do lado escolhido
-				            system("pause");
-				            system("cls");
-				            continue;
-			           }
-			       }
-			       else if((mesaD == peca[i].lado1) || (mesaD == peca[i].lado2))                      // se nao precisar escolher o lado verifica em qual lado a peca sera jogada automaticamente apos a escolha
-			       {
-					   carregaMesaD(i);
-					   system("cls");  
-			       }                 
-			                         
+	        case 'S':
+		        break;
+		    case 'C':
+		    {
+		        comprar(jogadorr);
+	            continue;
+	        }
+	        case 'P':
+	        {
+	    	    if(passar(jogadorr) == TRUE)
+	    	    {
+	    	       if(qtd_passar != 2)
+	    	       {
+			            if(jogadorr == '1')
+			               jogadorr = '2';
+                        else
+                           jogadorr = '1';
+                   }
+               
 			       else
 			       {
-			           carregaMesaE(i);
-			           system("cls");  
-			       }
+				        apresenta_mensagem("Os dois jogadores passaram a vez em seguida!\n===Resultado da partida===\n\n");
+				        for(j=0; j<28; j++)                                                  //percorre todas as pecas e verifica as pecas que tem status jogador
+	    	            {
+	    	   	            if(peca[j].status=='1' || peca[j].status=='2')
+	    	   	            {
+	    	   	    	        if(peca[j].status=='1')
+	    	   	                {
+							        qtdpecas1++;
+						            soma_lados1 = soma_lados1 + peca[j].lado1 + peca[j].lado2;
+					            }
+	    	   	    	        else
+	    	   	                {
+							        qtdpecas2++;
+							        soma_lados2 = soma_lados2 + peca[j].lado1 + peca[j].lado2;
+					            }
+	    	   	            }  
+	    		        }
+	    	            print_qtd_pecas(qtdpecas1, qtdpecas2);
 			   
-			       venc_batida(jogadorr);                 //depois de verificar que a peca pode ser jogada.
+			            if(qtdpecas1 < qtdpecas2)
+			                apresenta_mensagem("\n===Jogador 1 venceu!===\n"); 
+			   
+			            else if(qtdpecas1 > qtdpecas2)
+			            {
+					        if(sent==2)
+					            apresenta_mensagem("\n=== O Computador venceu!===\n");
+					        else
+					            apresenta_mensagem("\n===Jogador 2 venceu!===\n");
+			            }
+			            else
+			            {
+			   	            print_pontos(soma_lados1, soma_lados2);
+			   	    
+			   	            if(soma_lados1 < soma_lados2)
+					            apresenta_mensagem("\n===Jogador 1 venceu!===\n"); 
+					        else if(soma_lados1 > soma_lados2)
+					        {
+					            if(sent==2)
+					                apresenta_mensagem("\n=== O Computador venceu!===\n"); 
+					            else
+					                apresenta_mensagem("\n===Jogador 2 venceu!===\n");
+				            }
+			            }
+			            system("pause");
+			            system("cls");
+			            break;
+			       }
 			    }
-			
-			
-			    else
+	    	    continue;
+		    }
+	        
+			case 'J':
+	        {
+	    	    if(sent==2 && jogadorr=='2')
+	    	    {
+	    		    qtd_passar = 0;
+	    	        
+					if((mesaD == peca[k].lado1) || (mesaD == peca[k].lado2))                      // se nao precisar escolher o lado verifica em qual lado a peca sera jogada automaticamente apos a escolha
+			            carregaMesaD(k);
+				    else
+			            carregaMesaE(k);
+			    
+			        system("cls");  
+			        print_jogadacomp(peca[k].lado1, peca[k].lado2);
+			        system("pause");
+			        system("cls");
+			        venc_batida(jogadorr);
+		        }
+			    
+		        else
 			    {
-				   system("cls");
-			       apresenta_mensagem("\n\nPeca incompativel! Tente novamente ou compre uma peca\n");                              //caso a peca escolhida nao seja compativel com nenhuma das extremidades da mesa
-			       system("pause");
-			       system("cls");
-			       continue;
-			    }
-		   }
-		   break;
-	   }
+				    for(h=0; h<28; h++)
+				    {
+					    if(peca[h].status==jogadorr)
+					       break;
+				    }
+				    if(h==28)
+				    {
+					    system("cls");
+					    apresenta_mensagem("\n\nVoce nao possui pecas para jogar, compre ou passe a vez.\n");
+					    system("pause");
+					    system("cls");
+					    continue;
+				    }
+			        
+					escolha = escolher_peca(jogadorr);
+			        i=0;
+			        b=0;
+			        while((b != escolha) && (i < 28))             //verifica qual a peca escolhida a partir de sua indexacao no array de pecas e seu status
+			        {
+				        if(peca[i].status == jogadorr)
+				            b++;
+				        i++;
+			        }
+			        i--;
+			
+			        if(b != escolha && i == 27)
+			        {
+				        system("cls");
+				        apresenta_mensagem("\n\nPeca invalida! Voce nao possui essa peca. Tente novamente \n");                                                    //caso o usuario digite uma peca diferente de suas opcoes na mao
+				        system("pause");
+			            system("cls");
+			            continue;
+		            }
+			
+		 	        if((mesaD == peca[i].lado1) || (mesaD == peca[i].lado2) || (mesaE == peca[i].lado1) || (mesaE == peca[i].lado2))                            // verifica se a peca escolhida e' possivel de ser jogada
+			        {
+				
+			  	        qtd_passar = 0;
+				
+				
+				        if((mesaE == mesaD) || (peca[i].lado1 == mesaE && peca[i].lado2 == mesaD) || (peca[i].lado1 == mesaD && peca[i].lado2 == mesaE))     //verifica a necessidade de deixar o usuario escolher o lado da mesa para jogar
+			            {
+			   	            lado = escolher_lado();                                                                                                                  
+			   	            if(lado == 'E')
+			   	                carregaMesaE(i);
+			   	  
+			   	            else if(lado == 'D')
+			   	                carregaMesaD(i);
+			   	  
+				            else
+				            {
+				                apresenta_mensagem("Opcao invalida! Tente novamente\n");                       
+				                system("pause");
+				                system("cls");
+				                continue;
+			                }
+			            }
+			            else if((mesaD == peca[i].lado1) || (mesaD == peca[i].lado2))                      // se nao precisar escolher o lado verifica em qual lado a peca sera jogada automaticamente apos a escolha
+			            {
+					        carregaMesaD(i);
+					        system("cls");  
+			            }                 
+			                         
+			            else
+			            {
+			                carregaMesaE(i);
+			                system("cls");  
+			            }
+			   
+			            venc_batida(jogadorr);                                                       //depois de verificar que a peca pode ser jogada.
+			        }
+			        
+					else
+			        {
+				        system("cls");
+			            apresenta_mensagem("\n\nPeca incompativel! Tente novamente ou compre uma peca\n");                             
+			            system("pause");
+			            system("cls");
+			            continue;
+			        }  
+		        }
+		        break;
+	       }
 	   
-	   default:
-	   {
-			system("cls");
-	    	apresenta_mensagem("Opcao Invalida!\n");
-			system("pause");
-			system("cls");
-			continue;
-	   }
+	       default:
+	       {
+			   system("cls");
+	    	   apresenta_mensagem("Opcao Invalida!\n");
+			   system("pause");
+			   system("cls");
+	 		   continue;
+	       }
+		}
 		
-	   }
 		
-		
-	   if(jogadorr=='1')      //mudar o jogador para o da proxima rodada
-		    jogadorr='2';
-	   else
-		   	jogadorr='1';
-		   
-	    
-    
+	    if(jogadorr=='1')                          //muda o jogador para o da proxima rodada
+		   jogadorr='2';
+	    else
+		   jogadorr='1';
 	}
 	while(qtd_passar != 2 && p!= 0 && op!= 'S');
 	
@@ -429,27 +424,27 @@ void jogar(char jogadorr)
 void comprar(char jogador_)
 {
    system("cls");
-   int i = 14;          //as 14 primeiras pecas ja nao estao mais livres
+   int i = 14;                          //as 14 primeiras pecas ja nao estao mais livres
    while(i < 28)
    {
-       if (peca[i].status == '0')
+        if (peca[i].status == '0')
         {
-        peca[i].status = jogador_;
-        break;
+           peca[i].status = jogador_;
+           break;
         }
         i++;
    }
-   if (i >= 28)
-       {
-       apresenta_mensagem("Nada a comprar\n");
-       system("pause");
-       }
-    if(sent==2 && jogador_=='2')
-    {
-	   apresenta_mensagem("O Computador comprou!\n");
-	   system("pause");
-    }
-	system("cls");
+   if(i >= 28)
+   {
+        apresenta_mensagem("Nada a comprar\n");
+        system("pause");
+   }
+   if(sent==2 && jogador_=='2')
+   {
+	    apresenta_mensagem("O Computador comprou!\n");
+	    system("pause");
+   }
+   system("cls");
 }
 
 booleano passar(char jogador4)
@@ -474,7 +469,7 @@ booleano passar(char jogador4)
       }
       else
       {
-          for(int j=0; j<28; j++)                       //percorre todas as pecas e verifica as pecas que tem status do jogador do momento e se existe alguma que pode ser jogada.
+          for(int j=0; j<28; j++)                            //percorre todas as pecas e verifica as pecas que tem status do jogador do momento e se existe alguma que pode ser jogada.
           {
   		      if(peca[j].status == jogador4)
   		      {
@@ -498,10 +493,10 @@ booleano depositoVazio()
 {
   for(int i = 0; i < 28; i++)
   {
-    if (peca[i].status == '0') 
-    return FALSE;
+     if(peca[i].status == '0') 
+        return FALSE;
   }
-return TRUE;
+  return TRUE;
 }
 
 
@@ -552,7 +547,7 @@ void venc_batida(char jogador5)
 	if(depositoVazio() == TRUE)
 	{
 	   int k;
-	   k = 0;        //qtd de pecas total 
+	   k = 0;                             //qtd de pecas total 
 	   p = 0;             
                
 	   while(k<28)
@@ -573,8 +568,7 @@ void venc_batida(char jogador5)
 	       system("pause");
 	       system("cls");
 	   }
-	 
-    }
+	}
     
 }
 

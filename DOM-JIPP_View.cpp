@@ -119,7 +119,7 @@ void print_bateu(char jogador6)
 
 void print_qtd_pecas(int qtd_pecas1, int qtd_pecas2)
 {
-	if(sent==2 && jogador=='2')
+	if(sent==2)
 	{
 	   printf(" Qtd de pecas Jogador 1: %d\n\n Qtd de pecas Computador: %d\n", qtd_pecas1, qtd_pecas2);
     }
@@ -130,7 +130,7 @@ void print_qtd_pecas(int qtd_pecas1, int qtd_pecas2)
 
 void print_pontos(int pontos1, int pontos2)
 {
-	if(sent==2 && jogador=='2')
+	if(sent==2)
 	{
 	   printf("\n Pontos Jogador 1: %d\n\n Pontos Computador: %d\n", pontos1, pontos2);
     }
